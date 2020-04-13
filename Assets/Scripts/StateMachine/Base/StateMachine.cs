@@ -5,11 +5,10 @@ using UnityEngine;
 public abstract class StateMachine : MonoBehaviour
 {
     public State CurrentState => _currentState;
+    protected bool InTransition { get; private set; }
 
     State _currentState;
     protected State _previousState;
-
-    protected bool InTransition { get; private set; }
 
     public void ChangeState<T>() where T : State
     {
@@ -23,18 +22,18 @@ public abstract class StateMachine : MonoBehaviour
             return;
         }
         // otherwise, we found our state!
-        ChangeState(targetState);
+        InitiateStateChange(targetState);
     }
 
     public void RevertState()
     {
         if(_previousState != null)
         {
-            ChangeState(_previousState);
+            InitiateStateChange(_previousState);
         }
     }
 
-    void ChangeState(State targetState)
+    void InitiateStateChange(State targetState)
     {
         // if our new state is different and we're not transitioning, do it
         if (_currentState != targetState && !InTransition)
