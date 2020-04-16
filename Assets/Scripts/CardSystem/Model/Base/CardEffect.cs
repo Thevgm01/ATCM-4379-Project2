@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public abstract class CardEffect
+public abstract class CardEffect : ScriptableObject
 {
-    public abstract void Activate(Card card);
+    public abstract void Activate(Card targetCard);
 }

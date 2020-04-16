@@ -4,21 +4,26 @@ using UnityEngine;
 
 public abstract class Card
 {
-    public bool RevealedToPlayer { get; protected set; }
-    public bool RevealedToEveryone { get; protected set; }
+    public enum CardVisibility
+    {
+        None,
+        Player,
+        Everyone
+    }
+
+    public CardVisibility Visibility { get; private set; } = CardVisibility.None;
 
     public virtual void Play()
     {
-        RevealedToEveryone = true;
+        Visibility = CardVisibility.Everyone;
     }
 
     public virtual void OnDraw()
     {
-        RevealedToPlayer = true;
+        Visibility = CardVisibility.Player;
     }
     public virtual void OnDiscard()
     {
-        RevealedToPlayer = false;
-        RevealedToEveryone = false;
+        Visibility = CardVisibility.None;
     }
 }

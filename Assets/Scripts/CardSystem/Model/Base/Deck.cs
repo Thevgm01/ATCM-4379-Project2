@@ -10,38 +10,38 @@ public enum DeckPosition
     Bottom
 }
 
-public class Deck <T>
+public class Deck <T> where T : Card
 {
     public event Action Emptied = delegate { };
     public event Action<T> Added = delegate { };
     public event Action<T> Removed = delegate { };
     // technically a Stack would be 'proper'
     // using a List instead for more control, like drawing from bottom/middle
-    List<T> _items = new List<T>();
+    List<T> _cards = new List<T>();
 
     #region Properties    
-    public int NumberOfItems => _items.Count;
-    public int LastIndex => _items.Count - 1;
-    public T TopItem => _items[0];
-    public T BottomItem => _items[_items.Count - 1];
-    public bool IsEmpty => _items.Count == 0;
+    public int Count => _cards.Count;
+    public int LastIndex => _cards.Count - 1;
+    public T TopItem => _cards[0];
+    public T BottomItem => _cards[_cards.Count - 1];
+    public bool IsEmpty => _cards.Count == 0;
     #endregion
     
     // Add card at specified index. Default to bottom
-    public void Add(T item, DeckPosition position = DeckPosition.Bottom)
+    public void Add(T card, DeckPosition position = DeckPosition.Bottom)
     {
         int targetIndex = GetIndexFromPosition(position);
 
-        _items.Insert(targetIndex, item);
-        Added?.Invoke(item);
+        _cards.Insert(targetIndex, card);
+        Added?.Invoke(card);
     }
 
-    public void Add(List<T> items, DeckPosition position = DeckPosition.Bottom)
+    public void Add(List<T> cards, DeckPosition position = DeckPosition.Bottom)
     {
-        int itemCount = items.Count;
+        int itemCount = cards.Count;
         for (int i = 0; i < itemCount; i++)
         {
-            Add(items[i], position);  
+            Add(cards[i], position);  
         }
     }
 
@@ -56,32 +56,32 @@ public class Deck <T>
 
         int targetIndex = GetIndexFromPosition(position);
 
-        T itemToRemove = _items[targetIndex];
+        T cardToRemove = _cards[targetIndex];
         Remove(targetIndex);
         
 
-        return itemToRemove;
+        return cardToRemove;
     }
 
-    public List<T> Draw(int numOfItems, DeckPosition position = DeckPosition.Top)
+    public List<T> Draw(int numberOfCards, DeckPosition position = DeckPosition.Top)
     {
-        List<T> drawnItems = new List<T>();
-        T drawnItem;    // for readability
-        for (int i = 0; i < numOfItems; i++)
+        List<T> drawnCards = new List<T>();
+        T drawnCard;    // for readability
+        for (int i = 0; i < numberOfCards; i++)
         {
             if (!IsEmpty)
             {
-                drawnItem = Draw(position);
-                drawnItems.Add(drawnItem);
+                drawnCard = Draw(position);
+                drawnCards.Add(drawnCard);
             }
         }
-        return drawnItems;
+        return drawnCards;
     }
 
     // use this to return the card at the index, but don't alter position
-    public T View(int index)
+    public T GetCard(int index)
     {
-        return _items[index];
+        return _cards[index];
     }
 
     // technically this is the same as Draw without returning an item
@@ -98,12 +98,12 @@ public class Deck <T>
             return;
         }
 
-        T removedItem = _items[index];
-        _items.RemoveAt(index);
+        T removedItem = _cards[index];
+        _cards.RemoveAt(index);
 
         Removed?.Invoke(removedItem);
 
-        if (_items.Count == 0)
+        if (_cards.Count == 0)
         {
             Emptied.Invoke();
         }
@@ -111,7 +111,7 @@ public class Deck <T>
 
     public void RemoveAll()
     {
-        _items.Clear();
+        _cards.Clear();
 
         Emptied?.Invoke();
     }
@@ -122,19 +122,19 @@ public class Deck <T>
     public void Shuffle()
     {
         // start at the bottom, randomly swapping cards as we move our way up
-        for (int i = NumberOfItems - 1; i > 0; --i)
+        for (int i = Count - 1; i > 0; --i)
         {
             // choose a random card
             int j = UnityEngine.Random.Range(0, i + 1);
-            T randomItems = _items[j];
+            T randomCard = _cards[j];
             // random card swaps places with our current index
-            _items[j] = _items[i];
-            _items[i] = randomItems;
+            _cards[j] = _cards[i];
+            _cards[i] = randomCard;
             // move upwards to next card index
         }
     }
 
-    private bool IsItemAtIndex(int index)
+    private bool IsCardAtIndex(int targetIndex)
     {
         // is the hand empty
         if (IsEmpty)
@@ -144,13 +144,13 @@ public class Deck <T>
             return default;
         }
         // is index within bounds of list
-        else if (!IsIndexWithinListRange(index))
+        else if (!IsIndexWithinListRange(targetIndex))
         {
             Debug.LogWarning("Deck: Cannot view; index out of range");
             return default;
         }
         // is the item present actually an item
-        else if (_items[index] == null)
+        else if (_cards[targetIndex] == null)
         {
             Debug.LogWarning("Deck: Nothing contained in requested index");
             return default;
@@ -163,7 +163,7 @@ public class Deck <T>
     bool IsIndexWithinListRange(int index)
     {
         // if index is within the range of contents
-        if (index >= 0 && index <= _items.Count - 1)
+        if (index >= 0 && index <= _cards.Count - 1)
         {
             return true;
         }
@@ -193,5 +193,15 @@ public class Deck <T>
         }
 
         return newPositionIndex;
+    }
+
+    public void TransferDeckCards(Deck<T> targetDeck)
+    {
+        // transfor discard cards back into main
+        for (int i = 0; i < Count; i++)
+        {
+            T card = Draw();
+            targetDeck.Add(card);
+        }
     }
 }
