@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class CardEffect : ScriptableObject
 {
-    public abstract void Activate(Card targetCard);
+    public abstract void Activate(ITargetable target);
 }

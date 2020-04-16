@@ -8,27 +8,22 @@ public class CardGameDeckController
     public Deck<AbilityCard> AbilityCardDeck { get; private set; } = new Deck<AbilityCard>();
     public Deck<AbilityCard> AbilityDiscardDeck { get; private set; } = new Deck<AbilityCard>();
 
-    public void SubscribeToEvents()
-    {
-        AbilityCardDeck.Emptied += OnDiscardEmptied;
-    }
-
     public void UnsubscribeFromEvents()
     {
-        AbilityCardDeck.Emptied -= OnDiscardEmptied;
+        AbilityCardDeck.Emptied -= OnAbilityDeckEmptied;
     }
 
     public void CreateStartingDeck(AbilityCardDeckConfig deckConfig)
     {
         AbilityCardDeck = DeckFactory.CreateDeck(deckConfig.Cards);
+
+        AbilityCardDeck.Emptied += OnAbilityDeckEmptied;
     }
 
-    void OnDiscardEmptied()
+    void OnAbilityDeckEmptied()
     {
-        Debug.Log("Out of cards! Reshuffling discard into main deck.");
+        Debug.Log("EMPTY - Out of cards! Reshuffling discard into main deck.");
         AbilityDiscardDeck.TransferDeckCards(AbilityCardDeck);
         AbilityCardDeck.Shuffle();
     }
-
-
 }

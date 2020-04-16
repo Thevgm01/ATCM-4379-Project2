@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class CardTestController : MonoBehaviour
 {
+    [SerializeField] CardGameSM _cardGameSM = null;
+
     private void Update()
     {
-        // Player draws card
+        // Draw cards and move them into Discard
         if (Input.GetKeyDown(KeyCode.Q))
         {
-
+            AbilityCard newCard = _cardGameSM.DeckController.AbilityCardDeck.Draw();
+            if(newCard != null)
+            {
+                _cardGameSM.DeckController.AbilityDiscardDeck.Add(newCard);
+            }
+            
         }
         // Enemy draws card
         if (Input.GetKeyDown(KeyCode.A))

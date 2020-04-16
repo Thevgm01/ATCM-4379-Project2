@@ -16,11 +16,6 @@ public class CardGameSM : StateMachine
     [Header("Game Settings")]
     [SerializeField] int _rounds = 3;
 
-    private void OnEnable()
-    {
-        DeckController.SubscribeToEvents();
-    }
-
     private void OnDisable()
     {
         DeckController.UnsubscribeFromEvents();

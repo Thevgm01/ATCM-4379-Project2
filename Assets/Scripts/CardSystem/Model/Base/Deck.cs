@@ -50,7 +50,7 @@ public class Deck <T> where T : Card
     {
         if (IsEmpty)
         {
-            Debug.LogError("Deck: Cannot draw new item - deck is empty!");
+            Debug.LogWarning("Deck: Cannot draw new item - deck is empty!");
             return default;
         }
 
@@ -59,7 +59,6 @@ public class Deck <T> where T : Card
         T cardToRemove = _cards[targetIndex];
         Remove(targetIndex);
         
-
         return cardToRemove;
     }
 
@@ -105,7 +104,7 @@ public class Deck <T> where T : Card
 
         if (_cards.Count == 0)
         {
-            Emptied.Invoke();
+            Emptied?.Invoke();
         }
     }
 
@@ -131,6 +130,17 @@ public class Deck <T> where T : Card
             _cards[j] = _cards[i];
             _cards[i] = randomCard;
             // move upwards to next card index
+        }
+    }
+
+    public void TransferDeckCards(Deck<T> transferIntoDeck)
+    {
+        int numCardsToTransfer = Count;
+        // transfor discard cards back into main
+        for (int i = 0; i < numCardsToTransfer; i++)
+        {
+            T card = Draw();
+            transferIntoDeck.Add(card);
         }
     }
 
@@ -193,15 +203,5 @@ public class Deck <T> where T : Card
         }
 
         return newPositionIndex;
-    }
-
-    public void TransferDeckCards(Deck<T> targetDeck)
-    {
-        // transfor discard cards back into main
-        for (int i = 0; i < Count; i++)
-        {
-            T card = Draw();
-            targetDeck.Add(card);
-        }
     }
 }

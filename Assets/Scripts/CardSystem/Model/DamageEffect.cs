@@ -7,10 +7,11 @@ public class DamageEffect : CardEffect
 {
     [SerializeField] int _damageAmount = 1;
 
-    public override void Activate(Card targetCard)
+    public override void Activate(ITargetable target)
     {
-        // test to see if the target card is Damageable
-        IDamageable objectToDamage = targetCard as IDamageable;
+        // test to see if the target is Damageable
+        //TODO check this, to see if this syntax is correct
+        IDamageable objectToDamage = target as IDamageable;
         // if it is, apply damage
         if(objectToDamage != null)
         {
