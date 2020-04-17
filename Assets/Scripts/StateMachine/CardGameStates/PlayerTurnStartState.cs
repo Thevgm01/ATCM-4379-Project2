@@ -12,6 +12,7 @@ public class PlayerTurnStartState : CardGameState
     Deck<AbilityCard> _abilityCardDeck = null;
 
     CardPlayer _player;
+    Coroutine _playerStartRoutine = null;
 
     private void Start()
     {
@@ -27,28 +28,25 @@ public class PlayerTurnStartState : CardGameState
         Debug.Log("Starting Player Turn");
         _player = _playerController.CurrentPlayer;
 
-        Debug.Log("Player draws 2 cards");
-        _player.DrawAbilityCard(_cardsToDraw, _abilityCardDeck);
-
-        // listen for confirmation
-        StateMachine.Input.PressedConfirm += OnPressedConfirm;
-        StateMachine.Input.PressedCancel += OnPressedCancel;
+        // start player turn setup animation
+        if (_playerStartRoutine != null)
+            StopCoroutine(_playerStartRoutine);
+        _playerStartRoutine = StartCoroutine(TurnStartRoutine());
     }
 
     public override void Exit()
     {
-        StateMachine.Input.PressedConfirm -= OnPressedConfirm;
-        StateMachine.Input.PressedCancel -= OnPressedCancel;
+
     }
 
-    void OnPressedConfirm() 
+    IEnumerator TurnStartRoutine()
     {
-        // do the same thing, whether they pressed confirm or cancel
-        StateMachine.ChangeState<PlayerCardSelectState>();
-    }
+        Debug.Log("Player draws 2 cards");
+        _player.DrawAbilityCard(_cardsToDraw, _abilityCardDeck);
 
-    void OnPressedCancel()
-    {
+        yield return new WaitForSeconds(1.5f);
+
+        Debug.Log("Player turn setup complete.");
         StateMachine.ChangeState<PlayerCardSelectState>();
     }
 }

@@ -11,11 +11,6 @@ public class CardTestController : MonoBehaviour
         // Draw cards and move them into Discard
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            AbilityCard newCard = _cardGameSM.DeckController.AbilityCardDeck.Draw();
-            if(newCard != null)
-            {
-                _cardGameSM.DeckController.AbilityDiscardDeck.Add(newCard);
-            }
             
         }
         // Enemy draws card

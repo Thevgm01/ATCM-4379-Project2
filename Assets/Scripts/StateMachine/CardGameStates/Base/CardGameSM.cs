@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Main State Machine controller for all of the game states in the Card Game.
+/// This script should be responsible for any states, as well as any setup for classes
+/// and references that are crucial to the states.
+/// </summary>
 public class CardGameSM : StateMachine
 {
     public int Rounds => _rounds;

@@ -5,15 +5,41 @@ using System;
 
 public class TargetController
 {
-    public event Action<ITargetable> OnNewTarget = delegate { };
+    //TODO make a dictionary of targetables that we can use when we need
+    public event Action<ITargetable> NewTargeted = delegate { };
 
-    public ITargetable CurrentTarget { get; private set; }
+    public List<ITargetable> PossibleTargets { get; private set; } = new List<ITargetable>();
 
-    public void SetNewTarget(ITargetable newTarget)
+    public ITargetable CurrentTarget => PossibleTargets[_currentTargetIndex];
+    int _currentTargetIndex = 0;
+
+    public void GetNextTarget()
     {
-        CurrentTarget = newTarget;
-        newTarget.Target();
+        int nextTargetIndex = ArrayHelper.GetNextLoopedIndex
+            (_currentTargetIndex, PossibleTargets.Count);
+        _currentTargetIndex = nextTargetIndex;
 
-        OnNewTarget?.Invoke(newTarget);
+        NewTargeted.Invoke(CurrentTarget);
+    }
+
+    public void GetPreviousTarget()
+    {
+        int nextTargetIndex = ArrayHelper.GetPreviousLoopedIndex
+            (_currentTargetIndex, PossibleTargets.Count);
+        _currentTargetIndex = nextTargetIndex;
+
+        NewTargeted.Invoke(CurrentTarget);
+    }
+
+    //TODO
+    public void CreateTargets(List<ITargetable> newTargets)
+    {
+        
+    }
+
+    //TODO
+    public void AddNewTarget(ITargetable newTarget)
+    {
+        PossibleTargets.Add(newTarget);
     }
 }
