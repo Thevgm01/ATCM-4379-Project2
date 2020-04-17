@@ -5,8 +5,14 @@ using UnityEngine;
 public class CardGameDeckController
 {
     // decks
-    public Deck<AbilityCard> AbilityCardDeck { get; private set; } = new Deck<AbilityCard>();
-    public Deck<AbilityCard> AbilityDiscardDeck { get; private set; } = new Deck<AbilityCard>();
+    public Deck<AbilityCard> AbilityCardDeck { get; private set; }
+    public Deck<AbilityCard> AbilityDiscardDeck { get; private set; }
+
+    public CardGameDeckController()
+    {
+        AbilityCardDeck = new Deck<AbilityCard>();
+        AbilityDiscardDeck = new Deck<AbilityCard>();
+    }
 
     public void UnsubscribeFromEvents()
     {
@@ -15,8 +21,9 @@ public class CardGameDeckController
 
     public void CreateStartingDeck(AbilityCardDeckConfig deckConfig)
     {
+        Debug.Log("Building starting Ability deck");
         AbilityCardDeck = DeckFactory.CreateDeck(deckConfig.Cards);
-
+        Debug.Log("Ability Deck count after build: " + AbilityCardDeck.Count);
         AbilityCardDeck.Emptied += OnAbilityDeckEmptied;
     }
 

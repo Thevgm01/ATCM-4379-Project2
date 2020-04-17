@@ -21,7 +21,20 @@ public class Deck <T> where T : Card
 
     #region Properties    
     public int Count => _cards.Count;
-    public int LastIndex => _cards.Count - 1;
+    public int LastIndex
+    {
+        get
+        {
+            if(_cards.Count == 0)
+            {
+                return 0;
+            }
+            else
+            {
+                return _cards.Count - 1;
+            }
+        }
+    }
     public T TopItem => _cards[0];
     public T BottomItem => _cards[_cards.Count - 1];
     public bool IsEmpty => _cards.Count == 0;
@@ -31,7 +44,6 @@ public class Deck <T> where T : Card
     public void Add(T card, DeckPosition position = DeckPosition.Bottom)
     {
         int targetIndex = GetIndexFromPosition(position);
-
         _cards.Insert(targetIndex, card);
         Added?.Invoke(card);
     }
@@ -186,6 +198,11 @@ public class Deck <T> where T : Card
     private int GetIndexFromPosition(DeckPosition position)
     {
         int newPositionIndex = 0;
+        // if our deck is empty, index should always be 0
+        if(_cards.Count == 0)
+        {
+            newPositionIndex = 0;
+        }
         // get end of index if it's on 'from the top'
         if (position == DeckPosition.Top)
         {

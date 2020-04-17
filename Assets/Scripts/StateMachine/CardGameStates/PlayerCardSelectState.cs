@@ -20,11 +20,11 @@ public class PlayerCardSelectState : CardGameState
 
     void OnPressedConfirm()
     {
-        StateMachine.ChangeState<EnemyTurnStartState>();
+        StateMachine.ChangeState<BotTurnState>();
     }
 
     void OnPressedCancel()
     {
-        StateMachine.ChangeState<EnemyTurnStartState>();
+        StateMachine.ChangeState<BotTurnState>();
     }
 }

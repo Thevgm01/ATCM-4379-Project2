@@ -4,13 +4,6 @@ using UnityEngine;
 
 public abstract class Card
 {
-    public enum CardVisibility
-    {
-        None,
-        Player,
-        Everyone
-    }
-
     public CardVisibility Visibility { get; private set; } = CardVisibility.None;
 
     public virtual void Play()
