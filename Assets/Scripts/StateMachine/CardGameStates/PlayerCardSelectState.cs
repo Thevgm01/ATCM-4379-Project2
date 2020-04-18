@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This Card Game State is where the player selects which card from their
+/// hand they'd like to use.
+/// </summary>
 [RequireComponent(typeof(CardGameSM))]
 public class PlayerCardSelectState : CardGameState
 {
@@ -9,52 +13,48 @@ public class PlayerCardSelectState : CardGameState
     int _currentSelectionIndex = 0;
 
     int PlayerHandSize => _player.Hand.Count;
-    public AbilityCard SelectedCard => _player.Hand.GetCard(_currentSelectionIndex);
+
+    InputController _input = null;
+
+    private void Start()
+    {
+        _input = StateMachine.Input;
+    }
 
     public override void Enter()
     {
         _player = StateMachine.PlayerController.CurrentPlayer;
 
         Debug.Log("Player Card Select");
-        StateMachine.Input.PressedRight += OnPressedRight;
-        StateMachine.Input.PressedLeft += OnPressedLeft;
-        StateMachine.Input.PressedConfirm += OnPressedConfirm;
-        StateMachine.Input.PressedCancel += OnPressedCancel;
+        _input.PressedRight += OnPressedRight;
+        _input.PressedLeft += OnPressedLeft;
+        _input.PressedConfirm += OnPressedConfirm;
 
-        Debug.Log("Initial Selected Card: " + SelectedCard.Name);
+        Debug.Log("Initial Selected Card: " + _player.CurrentSelectedCard.Name);
     }
 
     public override void Exit()
     {
-        StateMachine.Input.PressedRight -= OnPressedRight;
-        StateMachine.Input.PressedLeft -= OnPressedLeft;
-        StateMachine.Input.PressedConfirm -= OnPressedConfirm;
-        StateMachine.Input.PressedCancel -= OnPressedCancel;
+        _input.PressedRight -= OnPressedRight;
+        _input.PressedLeft -= OnPressedLeft;
+        _input.PressedConfirm -= OnPressedConfirm;
     }
 
     void OnPressedRight()
     {
         // move to next selection
         _currentSelectionIndex = ArrayHelper.GetNextLoopedIndex(_currentSelectionIndex, PlayerHandSize);
-        Debug.Log("Selected Card: " + SelectedCard.Name);
+        _player.SelectCard(_currentSelectionIndex);
     }
 
     void OnPressedLeft()
     {
         _currentSelectionIndex = ArrayHelper.GetPreviousLoopedIndex(_currentSelectionIndex, PlayerHandSize);
-        Debug.Log("Selected Card: " + SelectedCard.Name);
+        _player.SelectCard(_currentSelectionIndex);
     }
 
     void OnPressedConfirm()
     {
-        SelectedCard.Play();    //TODO consider making this another state
-
-        StateMachine.ChangeState<DecideNextPlayerState>();
-    }
-
-    void OnPressedCancel()
-    {
-        // Pass, for now
-        StateMachine.ChangeState<DecideNextPlayerState>();
+        StateMachine.ChangeState<SelectTargetPlayerState>();
     }
 }

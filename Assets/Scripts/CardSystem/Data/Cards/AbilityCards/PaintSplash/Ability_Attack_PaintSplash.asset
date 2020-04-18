@@ -10,13 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0836b3260bd24244482f8f606c9cbb7a, type: 3}
-  m_Name: Ability_Summon_CatLady
+  m_Name: Ability_Attack_PaintSplash
   m_EditorClassIdentifier: 
-  _name: Cat Lady
+  _name: Paint Splash
   _rarity: 1
+  _graphic: {fileID: 21300000, guid: 7d34002682fc8aa4db2d39b8d2f6d64f, type: 3}
+  _drawnEffects: []
+  _playedEffects:
+  - {fileID: 11400000, guid: 1e4af7640a10ad44ea79f48dba276e09, type: 2}
+  _discardedEffects: []
   _attribute: 3
-  _type: 3
-  _cost: 3
-  _description: When I hits I crits
-  _graphic: {fileID: 21300000, guid: a612157e3c761ce4893b1e9820df8143, type: 3}
+  _type: 1
+  _cost: 2
+  _description: Taste the Rainbow
   _playSFX: {fileID: 0}

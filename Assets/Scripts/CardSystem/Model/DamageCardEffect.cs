@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewDamageEffect", menuName = "Card/Effects/Damage")]
-public class DamageEffect : CardEffect
+public class DamageCardEffect : CardEffect
 {
     [SerializeField] int _damageAmount = 1;
 

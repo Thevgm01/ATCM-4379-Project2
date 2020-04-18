@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class CardData : ScriptableObject
+public class CardData : ScriptableObject
 {
     [Header("Card Data")]
     [SerializeField] string _name = "...";
@@ -10,7 +10,16 @@ public abstract class CardData : ScriptableObject
 
     [SerializeField] int _rarity = 0;
     public int Rarity { get => _rarity; }
+    
+    [SerializeField] Sprite _graphic = null;
+    public Sprite Graphic => _graphic;
 
-    [SerializeField] List<CardEffect> _cardEffects = new List<CardEffect>();
-    public List<CardEffect> CardEffects => _cardEffects;
+    [SerializeField] List<CardEffect> _drawnEffects = new List<CardEffect>();
+    public List<CardEffect> DrawnEffects => _drawnEffects;
+
+    [SerializeField] List<CardEffect> _playedEffects = new List<CardEffect>();
+    public List<CardEffect> PlayedEffects => _playedEffects;
+
+    [SerializeField] List<CardEffect> _discardedEffects = new List<CardEffect>();
+    public List<CardEffect> DiscardedEffects => _discardedEffects;
 }

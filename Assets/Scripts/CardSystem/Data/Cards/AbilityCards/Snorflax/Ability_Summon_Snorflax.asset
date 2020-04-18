@@ -14,9 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Snorflax
   _rarity: 2
+  _graphic: {fileID: 21300000, guid: 47082c0ad8dd8874f9b844d3a7580ee4, type: 3}
+  _drawnEffects: []
+  _playedEffects:
+  - {fileID: 11400000, guid: 2f2722d28fa726949bf76dbc09e36492, type: 2}
+  _discardedEffects: []
   _attribute: 2
   _type: 3
   _cost: 4
   _description: Zzz
-  _graphic: {fileID: 21300000, guid: 47082c0ad8dd8874f9b844d3a7580ee4, type: 3}
   _playSFX: {fileID: 0}

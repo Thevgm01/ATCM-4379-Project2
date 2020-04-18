@@ -11,6 +11,8 @@ public class CardPlayerController
     public CardPlayer CurrentPlayer => _players[_currentPlayerIndex];
 
     List<CardPlayer> _players = new List<CardPlayer>();
+    public List<CardPlayer> Players => _players;
+
     int _currentPlayerIndex = 0;
 
     public void MakeNextPlayerCurrent()
@@ -35,9 +37,9 @@ public class CardPlayerController
         }
     }
 
-    public void AddPlayer(bool isBot)
+    public void AddPlayer(string name, bool isBot)
     {
-        CardPlayer player = new CardPlayer(isBot);
+        CardPlayer player = new CardPlayer(name, isBot);
         _players.Add(player);
     }
 

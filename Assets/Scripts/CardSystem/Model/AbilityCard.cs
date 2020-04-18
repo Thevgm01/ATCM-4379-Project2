@@ -3,41 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class AbilityCard : Card
+public class AbilityCard : Card, ITargetable
 {
-    public string Name { get; private set; }
     public int Cost { get; private set; }
     public string Description { get; private set; }
-    public AbilityCardData.CardAttribute Attribute { get; private set; }
-    public Sprite Graphic { get; private set; }
+    public CardAttribute Attribute { get; private set; }
 
     // constructor, Awake, Start
-    public AbilityCard(AbilityCardData data)
+    public AbilityCard(AbilityCardData data) : base(data)
     {
-        Name = data.Name;
         Cost = data.Cost;
         Description = data.Description;
         Attribute = data.Attribute;
-        Graphic = data.Graphic;
     }
-    // update, loops
 
     // public methods
-    public override void Play()
+    public override void Play(CardPlayer player, ITargetable target)
     {
-        base.Play();
-        Debug.Log("PLAY: " + Name);
+        Debug.Log("PLAY Ability Card: " + Name);
+        base.Play(player, target);
     }
 
-    public override void OnDiscard()
+    public override void Discard(CardPlayer player)
     {
-        base.OnDiscard();
+        base.Discard(player);
         //
     }
 
-    public override void OnDraw()
+    public override void Draw(CardPlayer player)
     {
-        base.OnDraw();
+        base.Draw(player);
         //
+    }
+
+    public void Target()
+    {
+        Debug.Log("Card " + Name + " was targeted.");
     }
 }

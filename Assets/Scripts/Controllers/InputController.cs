@@ -10,12 +10,54 @@ public class InputController : MonoBehaviour
     public event Action PressedLeft = delegate { };
     public event Action PressedRight = delegate { };
 
+    public event Action Pressed1 = delegate { };
+    public event Action Pressed2 = delegate { };
+    public event Action Pressed3 = delegate { };
+    public event Action Pressed4 = delegate { };
+
     void Update()
     {
         DetectConfirm();
         DetectCancel();
         DetectLeft();
         DetectRight();
+
+        Detect1();
+        Detect2();
+        Detect3();
+        Detect4();
+    }
+
+    private void Detect1()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Pressed1.Invoke();
+        }
+    }
+
+    private void Detect2()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Pressed2.Invoke();
+        }
+    }
+
+    private void Detect3()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            Pressed3.Invoke();
+        }
+    }
+
+    private void Detect4()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            Pressed4.Invoke();
+        }
     }
 
     private void DetectRight()

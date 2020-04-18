@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class CardTestController : MonoBehaviour
 {
-    [SerializeField] CardGameSM _cardGameSM = null;
+    //[SerializeField] TestTarget _testTarget = null;
+    //[SerializeField] AbilityCard _cardWithEffects = null;
+    //[SerializeField] CardGameSM _cardGameSM = null;
 
     private void Update()
     {
-        // Draw cards and move them into Discard
+        // Use the card's effect on the test target
         if (Input.GetKeyDown(KeyCode.Q))
         {
             

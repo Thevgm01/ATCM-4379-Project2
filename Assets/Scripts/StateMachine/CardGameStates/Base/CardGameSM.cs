@@ -55,7 +55,8 @@ public class CardGameSM : StateMachine
     {
         for (int i = 0; i < numberOfBots; i++)
         {
-            PlayerController.AddPlayer(true);
+            string name = "Bot" + (i+1).ToString();
+            PlayerController.AddPlayer(name,true);
         }
     }
 
@@ -63,7 +64,8 @@ public class CardGameSM : StateMachine
     {
         for (int i = 0; i < numberOfHumans; i++)
         {
-            PlayerController.AddPlayer(false);
+            string name = "Human" + (i + 1).ToString();
+            PlayerController.AddPlayer(name,false);
         }
     }
 }

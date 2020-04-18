@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CardVisibility
+public enum CardType
 {
-    None,
-    Player,
-    Everyone
+    None = 0,
+    Attack,
+    Buff,
+    Summon
 }
-
-

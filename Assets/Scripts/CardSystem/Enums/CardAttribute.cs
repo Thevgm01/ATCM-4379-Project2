@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CardVisibility
+public enum CardAttribute
 {
-    None,
-    Player,
-    Everyone
+    None = 0,
+    Brain,
+    Muscle,
+    Dexterity
 }
-
-

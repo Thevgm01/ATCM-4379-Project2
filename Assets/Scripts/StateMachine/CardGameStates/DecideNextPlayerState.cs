@@ -21,7 +21,6 @@ public class DecideNextPlayerState : CardGameState
 
     public override void Tick()
     {
-        Debug.Log("Deciding next player...");
         // decide which state to progress to
         if (_currentPlayer.IsAI)
         {

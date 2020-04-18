@@ -26,7 +26,7 @@ public class BotTurnState : CardGameState
 
     public override void Enter()
     {
-        Debug.Log("Enemy Turn");
+        Debug.Log("ENEMY TURN");
         _player = _playerController.CurrentPlayer;
 
         Debug.Log("Enemy draws 2 cards");

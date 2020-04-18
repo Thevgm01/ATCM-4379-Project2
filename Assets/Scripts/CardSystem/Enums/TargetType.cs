@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CardVisibility
+public enum TargetType
 {
-    None,
-    Player,
-    Everyone
+    None = 0,
+    Self,
+    Other
 }
-
-

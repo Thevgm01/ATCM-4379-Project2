@@ -3,23 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class CardPlayer
+public class CardPlayer : ITargetable, IDamageable
 {
     public event Action<Card> DrewCard = delegate { };
     public event Action<Card> PlayedCard = delegate { };
 
     public Deck<AbilityCard> Hand { get; private set; } = new Deck<AbilityCard>();
     public bool IsAI { get; private set; }
+    public string Name { get; private set; }
 
-    public CardPlayer(bool isAI)
+    public AbilityCard CurrentSelectedCard => Hand.GetCard(_selectedCardIndex);
+    public ITargetable CurrentTarget { get; private set; }
+
+    int _selectedCardIndex = 0;
+
+    public CardPlayer(string name, bool isAI)
     {
+        Name = name;
         IsAI = isAI;
+    }
+
+    public void SelectCard(int cardIndex)
+    {
+        if(ArrayHelper.IsValidIndex(cardIndex, Hand.Count))
+        {
+            _selectedCardIndex = cardIndex;
+            Debug.Log("Selected Card: " + CurrentSelectedCard.Name);
+        }
     }
 
     public void PlayCard(int targetIndex)
     {
         AbilityCard targetCard = Hand.GetCard(targetIndex);
-        targetCard.Play();
+        targetCard.Play(this, CurrentTarget);
         // card should no longer exist in 'hand'
         Hand.Remove(targetIndex);
         // allow the next thing to grab it, if desired
@@ -34,9 +50,26 @@ public class CardPlayer
             if(newCard != null)
             {
                 Hand.Add(newCard, DeckPosition.Top);
+                newCard.Draw(this);
                 Debug.Log("New Card: " + newCard.Name);
+
                 DrewCard.Invoke(newCard);
             }
         }
+    }
+
+    public void Target()
+    {
+        Debug.Log("Targeted: " + Name);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        Debug.Log(Name + " took " + damage + " damage.");
+    }
+
+    public void Kill()
+    {
+        Debug.Log(Name + " has died!");
     }
 }

@@ -25,7 +25,7 @@ public class PlayerTurnStartState : CardGameState
 
     public override void Enter()
     {
-        Debug.Log("Starting Player Turn");
+        Debug.Log("PLAYER TURN");
         _player = _playerController.CurrentPlayer;
 
         // start player turn setup animation
@@ -46,7 +46,6 @@ public class PlayerTurnStartState : CardGameState
 
         yield return new WaitForSeconds(1.5f);
 
-        Debug.Log("Player turn setup complete.");
         StateMachine.ChangeState<PlayerCardSelectState>();
     }
 }
