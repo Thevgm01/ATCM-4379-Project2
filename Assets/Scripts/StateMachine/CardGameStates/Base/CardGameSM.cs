@@ -12,6 +12,7 @@ public class CardGameSM : StateMachine
     public int Rounds => _rounds;
     // referenced properties
     public InputController Input => _input;
+
     public CardGameDeckController DeckController { get; private set; } = new CardGameDeckController();
     public CardPlayerController PlayerController { get; private set; } = new CardPlayerController();
     public TargetController TargetController { get; private set; } = new TargetController();
@@ -20,6 +21,7 @@ public class CardGameSM : StateMachine
 
     [Header("References")]
     [SerializeField] InputController _input = null;
+    [SerializeField] CardGameView _cardGameView = null;
     [SerializeField] AbilityCardDeckConfig _abilityDeckData = null;
 
     [Header("Game Settings")]
@@ -38,6 +40,8 @@ public class CardGameSM : StateMachine
         BuildAbilityDeck(_abilityDeckData);
         CreateHumanPlayers(_numberOfHumans);
         CreateBotPlayers(_numberOfBots);
+
+        _cardGameView.Setup(this);   //TODO kinda hacky
     }
 
     private void Start()

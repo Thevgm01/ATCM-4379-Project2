@@ -19,7 +19,7 @@ public class SetupCardGameState : CardGameState
     public override void Enter()
     {
         Debug.Log("Card Setup State. Do fancy animations to build the board.");
-
+        // start setup animation sequence
         if (_setupAnimation != null)
             StopCoroutine(_setupAnimation);
         _setupAnimation = StartCoroutine(SetupAnimation());

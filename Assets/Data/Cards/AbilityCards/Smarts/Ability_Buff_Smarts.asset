@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0836b3260bd24244482f8f606c9cbb7a, type: 3}
-  m_Name: Ability_Attack_Kick
+  m_Name: Ability_Buff_Smarts
   m_EditorClassIdentifier: 
-  _name: Kick
-  _rarity: 0
-  _graphic: {fileID: 21300000, guid: a149ab54b7f2c8a499e4767ad385a8fd, type: 3}
-  _drawnEffects: []
-  _playedEffects:
-  - {fileID: 11400000, guid: fdbb2ba18a1c1534aad691b3ed4197a2, type: 2}
-  _discardedEffects: []
-  _attribute: 2
-  _type: 1
+  _name: Smarts
+  _rarity: 2
+  _graphic: {fileID: 21300000, guid: 29260b76de749fe4cb478211652c550e, type: 3}
+  _deckStyle: {fileID: 11400000, guid: bc3d39ecf3a9e574faa44092d803335b, type: 2}
+  _drawEffect: {fileID: 0}
+  _playEffect: {fileID: 0}
+  _discardEffect: {fileID: 0}
+  _attribute: 1
+  _type: 2
   _cost: 1
-  _description: Punch with your foot
+  _description: How do you like them apples
   _playSFX: {fileID: 0}

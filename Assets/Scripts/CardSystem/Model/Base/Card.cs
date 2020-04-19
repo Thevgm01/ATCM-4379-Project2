@@ -10,9 +10,9 @@ public abstract class Card
     public int Rarity { get; private set; } = 0;
     public Sprite Graphic { get; private set; } = null;
 
-    public List<CardEffect> PlayedEffects { get; private set; } = new List<CardEffect>();
-    public List<CardEffect> DrawnEffects { get; private set; } = new List<CardEffect>();
-    public List<CardEffect> DiscardedEffects { get; private set; } = new List<CardEffect>();
+    public CardPlayEffect PlayEffect { get; private set; }
+    public CardDrawEffect DrawEffect { get; private set; }
+    public CardDiscardEffect DiscardEffect { get; private set; }
 
     protected Card(CardData data)
     {
@@ -20,46 +20,37 @@ public abstract class Card
         Rarity = data.Rarity;
         Graphic = data.Graphic;
 
-        PlayedEffects = data.PlayedEffects;
-        DrawnEffects = data.DrawnEffects;
-        DiscardedEffects = data.DiscardedEffects;
+        PlayEffect = data.PlayEffect;
+        DrawEffect = data.DrawEffect;
+        DiscardEffect = data.DiscardEffect;
     }
 
-    public virtual void Play(CardPlayer player, ITargetable target)
+    public virtual void Play(ITargetable target)
     {
         Visibility = CardVisibility.Everyone;
 
-        foreach(CardEffect effect in PlayedEffects)
+        if(PlayEffect != null)
         {
-            if(effect != null)
-            {
-                effect.Activate(target);
-            }  
-        }
+            PlayEffect.Activate(target);
+        }  
     }
 
     public virtual void Draw(CardPlayer player)
     {
         Visibility = CardVisibility.Player;
 
-        foreach (CardEffect effect in DrawnEffects)
+        if (DrawEffect != null)
         {
-            if (effect != null)
-            {
-                effect.Activate(player);
-            }
+            DrawEffect.Activate(player);
         }
     }
     public virtual void Discard(CardPlayer player)
     {
         Visibility = CardVisibility.None;
 
-        foreach (CardEffect effect in DiscardedEffects)
+        if (DiscardEffect != null)
         {
-            if (effect != null)
-            {
-                effect.Activate(player);
-            }
+            DiscardEffect.Activate(player);
         }
     }
 }

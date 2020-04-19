@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 /// <summary>
 /// This Card Game State is where the player selects which card from their
 /// hand they'd like to use.
 /// </summary>
-[RequireComponent(typeof(CardGameSM))]
 public class PlayerCardSelectState : CardGameState
 {
     CardPlayer _player = null;

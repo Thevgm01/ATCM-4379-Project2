@@ -14,12 +14,15 @@ public class CardData : ScriptableObject
     [SerializeField] Sprite _graphic = null;
     public Sprite Graphic => _graphic;
 
-    [SerializeField] List<CardEffect> _drawnEffects = new List<CardEffect>();
-    public List<CardEffect> DrawnEffects => _drawnEffects;
+    [SerializeField] DeckStyleData _deckStyle = null;
+    public DeckStyleData DeckStyle => _deckStyle;
 
-    [SerializeField] List<CardEffect> _playedEffects = new List<CardEffect>();
-    public List<CardEffect> PlayedEffects => _playedEffects;
+    [SerializeField] CardDrawEffect _drawEffect = null;
+    public CardDrawEffect DrawEffect => _drawEffect;
 
-    [SerializeField] List<CardEffect> _discardedEffects = new List<CardEffect>();
-    public List<CardEffect> DiscardedEffects => _discardedEffects;
+    [SerializeField] CardPlayEffect _playEffect = null;
+    public CardPlayEffect PlayEffect => _playEffect;
+
+    [SerializeField] CardDiscardEffect _discardEffect = null;
+    public CardDiscardEffect DiscardEffect => _discardEffect;
 }

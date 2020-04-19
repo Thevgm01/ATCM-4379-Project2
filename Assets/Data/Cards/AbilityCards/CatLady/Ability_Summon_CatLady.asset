@@ -15,10 +15,10 @@ MonoBehaviour:
   _name: Cat Lady
   _rarity: 1
   _graphic: {fileID: 21300000, guid: a612157e3c761ce4893b1e9820df8143, type: 3}
-  _drawnEffects: []
-  _playedEffects:
-  - {fileID: 11400000, guid: cffa5c81aeb5f674f947ccabd7ac8496, type: 2}
-  _discardedEffects: []
+  _deckStyle: {fileID: 11400000, guid: bc3d39ecf3a9e574faa44092d803335b, type: 2}
+  _drawEffect: {fileID: 0}
+  _playEffect: {fileID: 11400000, guid: cffa5c81aeb5f674f947ccabd7ac8496, type: 2}
+  _discardEffect: {fileID: 0}
   _attribute: 3
   _type: 3
   _cost: 3

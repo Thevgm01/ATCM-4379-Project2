@@ -13,8 +13,8 @@ public enum DeckPosition
 public class Deck <T> where T : Card
 {
     public event Action Emptied = delegate { };
-    public event Action<T> Added = delegate { };
-    public event Action<T> Removed = delegate { };
+    public event Action<T> CardAdded = delegate { };
+    public event Action<T> CardRemoved = delegate { };
     // technically a Stack would be 'proper'
     // using a List instead for more control, like drawing from bottom/middle
     List<T> _cards = new List<T>();
@@ -45,7 +45,7 @@ public class Deck <T> where T : Card
     {
         int targetIndex = GetIndexFromPosition(position);
         _cards.Insert(targetIndex, card);
-        Added?.Invoke(card);
+        CardAdded?.Invoke(card);
     }
 
     public void Add(List<T> cards, DeckPosition position = DeckPosition.Bottom)
@@ -112,7 +112,7 @@ public class Deck <T> where T : Card
         T removedItem = _cards[index];
         _cards.RemoveAt(index);
 
-        Removed?.Invoke(removedItem);
+        CardRemoved?.Invoke(removedItem);
 
         if (_cards.Count == 0)
         {

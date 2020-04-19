@@ -15,10 +15,10 @@ MonoBehaviour:
   _name: Casual Man
   _rarity: 1
   _graphic: {fileID: 21300000, guid: e19dc91c6040b4c4db5c5eb069aea58a, type: 3}
-  _drawnEffects: []
-  _playedEffects:
-  - {fileID: 11400000, guid: 15d9dc40a3b7f244885e32aacc37a1e2, type: 2}
-  _discardedEffects: []
+  _deckStyle: {fileID: 11400000, guid: bc3d39ecf3a9e574faa44092d803335b, type: 2}
+  _drawEffect: {fileID: 0}
+  _playEffect: {fileID: 11400000, guid: 15d9dc40a3b7f244885e32aacc37a1e2, type: 2}
+  _discardEffect: {fileID: 0}
   _attribute: 1
   _type: 3
   _cost: 3

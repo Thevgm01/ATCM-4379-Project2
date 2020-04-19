@@ -5,8 +5,8 @@ using System;
 
 public class CardPlayer : ITargetable, IDamageable
 {
-    public event Action<Card> DrewCard = delegate { };
-    public event Action<Card> PlayedCard = delegate { };
+    public event Action<AbilityCard> DrewCard = delegate { };
+    public event Action<AbilityCard> PlayedCard = delegate { };
 
     public Deck<AbilityCard> Hand { get; private set; } = new Deck<AbilityCard>();
     public bool IsAI { get; private set; }
@@ -32,10 +32,12 @@ public class CardPlayer : ITargetable, IDamageable
         }
     }
 
-    public void PlayCard(int targetIndex)
+    public void PlayAbilityCard(List<ITargetable> possibleTargets, int targetIndex)
     {
         AbilityCard targetCard = Hand.GetCard(targetIndex);
-        targetCard.Play(this, CurrentTarget);
+        //TODO figure out how to get possible targets
+        //List<ITargetable> possibleTargets = ??
+        //targetCard.Play(possibleTargets, CurrentTarget);
         // card should no longer exist in 'hand'
         Hand.Remove(targetIndex);
         // allow the next thing to grab it, if desired

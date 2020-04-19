@@ -1,71 +1,46 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class SelectTargetPlayerState : CardGameState
 {
-    CardPlayerController _playerController = null;
+    public static event Action Entered = delegate { };
+    public static event Action Exited = delegate { };
+
     CardPlayer _player = null;
+
     InputController _input = null;
-
-    List<ITargetable> _targets = new List<ITargetable>();
-    ITargetable CurrentTarget => _targets[_currentTargetIndex];
-
-    AbilityCard _selectedCard = null;
-    int _currentTargetIndex = 0;
+    TargetController _targetController = null;
 
     private void Start()
     {
-        _playerController = StateMachine.PlayerController;
+        _player = StateMachine.PlayerController.CurrentPlayer;
         _input = StateMachine.Input;
+        _targetController = StateMachine.TargetController;
     }
 
     public override void Enter()
     {
         Debug.Log("SELECT TARGET");
-        GetTargets();
-        _player = _playerController.CurrentPlayer;
-        // select targets with left/right
-        _input.PressedLeft += OnPressedLeft;
-        _input.PressedRight += OnPressedRight;
-        _input.PressedConfirm += OnPressedConfirm;
+        // wait for player to click a target, or cancel
+        _targetController.TargetClicked += OnTargetClicked;
         _input.PressedCancel += OnPressedCancel;
+
+        Entered?.Invoke();
     }
 
     public override void Exit()
     {
-        _input.PressedLeft -= OnPressedLeft;
-        _input.PressedRight -= OnPressedRight;
-        _input.PressedConfirm -= OnPressedConfirm;
+        _targetController.TargetClicked -= OnTargetClicked;
         _input.PressedCancel -= OnPressedCancel;
+
+        Exited?.Invoke();
     }
 
-    void GetTargets()
+    void OnTargetClicked(ITargetable target)
     {
-        //TODO optionally get targetable cards here, if you want cards to be targetable
-        foreach(CardPlayer player in _playerController.Players)
-        {
-            // this only works if player is targetable
-            _targets.Add(player);
-        }
-    }
-
-    void OnPressedLeft()
-    {
-        _currentTargetIndex = ArrayHelper.GetPreviousLoopedIndex(_currentTargetIndex, _targets.Count);
-        CurrentTarget.Target();
-    }
-
-    void OnPressedRight()
-    {
-        _currentTargetIndex = ArrayHelper.GetNextLoopedIndex(_currentTargetIndex, _targets.Count);
-        CurrentTarget.Target();
-
-    }
-
-    void OnPressedConfirm()
-    {
-        _player.CurrentSelectedCard.Play(_player, CurrentTarget);
+        _player.CurrentSelectedCard.Play(target);
         StateMachine.ChangeState<DecideNextPlayerState>();
     }
 

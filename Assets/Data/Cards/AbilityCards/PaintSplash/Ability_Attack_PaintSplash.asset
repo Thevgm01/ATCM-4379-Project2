@@ -15,10 +15,10 @@ MonoBehaviour:
   _name: Paint Splash
   _rarity: 1
   _graphic: {fileID: 21300000, guid: 7d34002682fc8aa4db2d39b8d2f6d64f, type: 3}
-  _drawnEffects: []
-  _playedEffects:
-  - {fileID: 11400000, guid: 1e4af7640a10ad44ea79f48dba276e09, type: 2}
-  _discardedEffects: []
+  _deckStyle: {fileID: 11400000, guid: bc3d39ecf3a9e574faa44092d803335b, type: 2}
+  _drawEffect: {fileID: 0}
+  _playEffect: {fileID: 11400000, guid: 1e4af7640a10ad44ea79f48dba276e09, type: 2}
+  _discardEffect: {fileID: 0}
   _attribute: 3
   _type: 1
   _cost: 2
