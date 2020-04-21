@@ -20,4 +20,19 @@ public class KillCardEffect : CardPlayEffect
             Debug.Log("Card is not killable...");
         }
     }
+
+    public override bool IsTargetValid(ITargetable target)
+    {
+        // test to see if the target is Damageable
+        IDamageable objectToDamage = target as IDamageable;
+
+        if (objectToDamage != null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

@@ -351,6 +351,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cardViewPrefab: {fileID: 8480981163360811475, guid: 4a1c4f55b948a564791f2bb1df26a3aa,
     type: 3}
+  _deckStyleData: {fileID: 11400000, guid: bc3d39ecf3a9e574faa44092d803335b, type: 2}
 --- !u!114 &775954492
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,12 +6,15 @@ using UnityEngine.UI;
 [RequireComponent(typeof(ViewClickable))]
 public class AbilityCardView : MonoBehaviour
 {
+    [Header("UI Elements")]
     [SerializeField] Text _nameTextUI = null;
     [SerializeField] Text _costTextUI = null;
     [SerializeField] Text _descriptionTextUI = null;
     [SerializeField] Image _graphicUI = null;
     [SerializeField] Image _backsideUI = null;
     [SerializeField] Image _frontBackgroundUI = null;
+
+    DeckStyleData _deckStyleData = null;
 
     public AbilityCard CurrentCard { get; private set; }
 
@@ -37,9 +40,10 @@ public class AbilityCardView : MonoBehaviour
         _viewClickable.MouseExited -= OnMouseExited;
     }
 
-    public void Setup(PlayerView playerView)
+    public void Setup(PlayerView playerView, DeckStyleData deckStyle)
     {
         _playerView = playerView;
+        _deckStyleData = deckStyle;
     }
 
     public void LoadNewCard(AbilityCard card)
@@ -56,8 +60,12 @@ public class AbilityCardView : MonoBehaviour
         _descriptionTextUI.text = card.Description;
         // sprites
         _graphicUI.sprite = card.Graphic;
-        _backsideUI.sprite = card.BackImage;
-        _frontBackgroundUI.sprite = card.FrontImage;
+        // deck style
+        if(_deckStyleData != null)
+        {
+            _backsideUI.sprite = _deckStyleData.CardBack;
+            _frontBackgroundUI.sprite = _deckStyleData.CardFront;
+        }
 
         DetermineCardFlip(card.Visibility);
     }

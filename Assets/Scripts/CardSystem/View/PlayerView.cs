@@ -7,6 +7,9 @@ public class PlayerView : MonoBehaviour
     //TODO make this an Object Pool
     [SerializeField] AbilityCardView _cardViewPrefab = null;
 
+    [Header("Card Style")]
+    [SerializeField] DeckStyleData _deckStyleData = null;
+
     List<AbilityCardView> _cardViews = new List<AbilityCardView>();
 
     CardPlayer _player = null;
@@ -56,7 +59,7 @@ public class PlayerView : MonoBehaviour
         AbilityCardView cardView = Instantiate(_cardViewPrefab, this.transform, false);
         _cardViews.Add(cardView);
 
-        cardView.Setup(this);
+        cardView.Setup(this, _deckStyleData);
         cardView.LoadNewCard(card);
     }
 

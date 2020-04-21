@@ -8,4 +8,5 @@ public abstract class CardPlayEffect : ScriptableObject
     protected TargetType TargetType => _targetType;
 
     public abstract void Activate(ITargetable target);
+    public abstract bool IsTargetValid(ITargetable target);
 }
