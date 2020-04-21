@@ -3,13 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public enum DeckPosition
-{
-    Top,
-    Middle,
-    Bottom
-}
-
 public class Deck <T> where T : Card
 {
     public event Action Emptied = delegate { };
@@ -35,16 +28,28 @@ public class Deck <T> where T : Card
             }
         }
     }
-    public T TopItem => _cards[0];
-    public T BottomItem => _cards[_cards.Count - 1];
+    public T TopItem => _cards[_cards.Count - 1];
+    public T BottomItem => _cards[0];
     public bool IsEmpty => _cards.Count == 0;
     #endregion
     
-    // Add card at specified index. Default to bottom
     public void Add(T card, DeckPosition position = DeckPosition.Bottom)
     {
+        // bodyguard
+        if(card == null) { return; }
+
         int targetIndex = GetIndexFromPosition(position);
-        _cards.Insert(targetIndex, card);
+        // to add it to 'Top' we actually want to add it at the end,
+        // by default Insert() moves the current index upwards
+        if (targetIndex == LastIndex)
+        {
+            _cards.Add(card);
+        }
+        else
+        {
+            _cards.Insert(targetIndex, card);
+        }
+
         CardAdded?.Invoke(card);
     }
 
@@ -92,7 +97,14 @@ public class Deck <T> where T : Card
     // use this to return the card at the index, but don't alter position
     public T GetCard(int index)
     {
-        return _cards[index];
+        if (IsCardAtIndex(index))
+        {
+            return _cards[index];
+        }
+        else
+        {
+            return default;
+        }
     }
 
     // technically this is the same as Draw without returning an item
@@ -132,16 +144,16 @@ public class Deck <T> where T : Card
     /// </summary>
     public void Shuffle()
     {
-        // start at the bottom, randomly swapping cards as we move our way up
-        for (int i = Count - 1; i > 0; --i)
+        // start at the top, randomly swapping cards as we move our way down
+        for (int currentIndex = Count - 1; currentIndex > 0; --currentIndex)
         {
             // choose a random card
-            int j = UnityEngine.Random.Range(0, i + 1);
-            T randomCard = _cards[j];
+            int randomIndex = UnityEngine.Random.Range(0, currentIndex + 1);
+            T randomCard = _cards[randomIndex];
             // random card swaps places with our current index
-            _cards[j] = _cards[i];
-            _cards[i] = randomCard;
-            // move upwards to next card index
+            _cards[randomIndex] = _cards[currentIndex];
+            _cards[currentIndex] = randomCard;
+            // move downwards to next card index
         }
     }
 
@@ -206,6 +218,7 @@ public class Deck <T> where T : Card
         // get end of index if it's on 'from the top'
         if (position == DeckPosition.Top)
         {
+            // index is 1 higher than last index, to add to end
             newPositionIndex = LastIndex;
         }
         // randomize if drawing from the middle
