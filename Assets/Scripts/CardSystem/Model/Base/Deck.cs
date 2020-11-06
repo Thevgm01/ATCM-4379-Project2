@@ -209,29 +209,16 @@ public class Deck <T> where T : Card
 
     private int GetIndexFromPosition(DeckPosition position)
     {
-        int newPositionIndex = 0;
         // if our deck is empty, index should always be 0
-        if(_cards.Count == 0)
+        if (_cards.Count == 0) return 0;
+
+        switch (position)
         {
-            newPositionIndex = 0;
-        }
-        // get end of index if it's on 'from the top'
-        if (position == DeckPosition.Top)
-        {
-            // index is 1 higher than last index, to add to end
-            newPositionIndex = LastIndex;
-        }
-        // randomize if drawing from the middle
-        else if (position == DeckPosition.Middle)
-        {
-            newPositionIndex = UnityEngine.Random.Range(0, LastIndex);
-        }
-        // get 0 index if it's 'from the bottom'
-        else if (position == DeckPosition.Bottom)
-        {
-            newPositionIndex = 0;
+            case DeckPosition.Top: return LastIndex;
+            case DeckPosition.Middle: return UnityEngine.Random.Range(0, LastIndex); ;
+            case DeckPosition.Bottom: return 0;
         }
 
-        return newPositionIndex;
+        return -1;
     }
 }

@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a422833dbe49b614bbab53b7d3ce4480, type: 3}
-  m_Name: StartingAbilityDeck
+  m_Script: {fileID: 11500000, guid: f6821f583c8ad1a43a5b6a4909583461, type: 3}
+  m_Name: Ship1_Play_Spawn
   m_EditorClassIdentifier: 
-  _abilityData:
-  - {fileID: 11400000, guid: 0ddd82c16d8fbdc40bac7845bc4f4870, type: 2}
+  _targetType: 0
+  _objectToSpawn: {fileID: 3666854398428704261, guid: 786266746b0a43b44982e68dd98e8f5f,
+    type: 3}
