@@ -5,7 +5,7 @@ using UnityEngine;
 public enum CardAttribute
 {
     None = 0,
-    Brain,
-    Muscle,
-    Dexterity
+    Matter,
+    Energy,
+    Computation,
 }

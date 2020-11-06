@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0836b3260bd24244482f8f606c9cbb7a, type: 3}
-  m_Name: Ability_Deploy_Ship1
+  m_Name: Buff_Armor
   m_EditorClassIdentifier: 
-  _name: Deploy Ship1
+  _name: Plated Armor
   _graphic: {fileID: 0}
   _rarity: 0
   _attribute: 1
-  _type: 3
-  _cost: 5
+  _type: 2
+  _cost: 1
   _drawEffect: {fileID: 0}
-  _playEffect: {fileID: 11400000, guid: cf9b5311dcb82c242b16b657224b3cbe, type: 2}
+  _playEffect: {fileID: 0}
   _discardEffect: {fileID: 0}
-  _description: Add Ship1 to your fleet
+  _description: Adds polyceramic armor plating, decreasing damage taken this turn
+    by 1 (additive, to a minimum of 1).
   _playSFX: {fileID: 0}
