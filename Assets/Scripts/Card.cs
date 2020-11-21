@@ -2,17 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Card
+public abstract class Card
 {
-    public string name;
+    public string Name { get; protected set; } = "...";
 
-    public Card(string n)
-    {
-        name = n;
-    }
-
-    public void Play()
-    {
-        Debug.Log("Playing card " + name);
-    }
+    public abstract void Play();
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Deck <T>
+public class Deck <T> where T : Card
 {
     public enum Position
     {
@@ -62,7 +62,7 @@ public class Deck <T>
         CardAdded?.Invoke(card);
     }
 
-    public T View(Position deckPosition = Position.Top)
+    public T Peek(Position deckPosition = Position.Top)
     {
         if (IsEmpty) return default(T);
 
