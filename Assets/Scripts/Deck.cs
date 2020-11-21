@@ -74,6 +74,21 @@ public class Deck <T> where T : Card
         return RemoveAt(IndexFromDeckPosition(deckPosition));
     }
 
+    public T Remove(T card)
+    {
+        if(!_cards.Contains(card))
+        {
+            Debug.LogWarning("Deck: Does not contain card " + card.Name + ".");
+            return default(T);
+        }
+
+        _cards.Remove(card);
+        CardRemoved?.Invoke(card);
+        if (IsEmpty) Emptied?.Invoke();
+
+        return card;
+    }
+
     public T RemoveAt(int index)
     {
         if (IsEmpty || index < 0 || index >= Count)

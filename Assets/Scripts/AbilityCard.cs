@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class AbilityCard : Card
 {
-    public AbilityCard(string name)
+    public int Cost { get; private set; }
+    public Sprite Graphic { get; private set; }
+
+    public AbilityCard(AbilityCardData Data)
     {
-        Name = name;
+        Name = Data.Name;
+        Cost = Data.Cost;
+        Graphic = Data.Graphic;
     }
 
     public override void Play()
