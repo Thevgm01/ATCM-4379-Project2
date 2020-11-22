@@ -1,0 +1,4 @@
+Weapon cards offer the ability to damage the opponent's fleet
+
+A weapon card can be attached to a ship, and is then added to the owning player's weapon queue
+Weapon cards can also be played directly from the player's hand, but are then discarded
