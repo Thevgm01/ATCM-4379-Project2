@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewWeaponCard", menuName = "CardData/WeaponCard")]
+[CreateAssetMenu(fileName = "New Weapon Card", menuName = "Card Data/Weapon Card")]
 public class WeaponCardData : CardData
 {
     public enum TargetType

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewShipCard", menuName = "CardData/ShipCard")]
+[CreateAssetMenu(fileName = "New Ship Card", menuName = "Card Data/Ship Card")]
 public class ShipCardData : CardData
 {
     [Header("Ship Info")]

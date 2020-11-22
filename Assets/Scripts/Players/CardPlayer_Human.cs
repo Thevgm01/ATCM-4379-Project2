@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardPlayer_AI : MonoBehaviour
+public class CardPlayer_Player : CardPlayer
 {
     // Start is called before the first frame update
     void Start()
