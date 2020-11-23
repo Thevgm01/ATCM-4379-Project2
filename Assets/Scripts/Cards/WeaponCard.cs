@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponCard : Card
+public class WeaponCard : ComponentCard
 {
     public WeaponCardData Data { get; private set; }
 

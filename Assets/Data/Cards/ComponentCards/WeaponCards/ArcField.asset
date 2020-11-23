@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a953e204d5bd85489a81c9ffe0bc954, type: 3}
   m_Name: ArcField
   m_EditorClassIdentifier: 
-  _name: ArcField
-  _description: ...
+  _name: Arc Field
+  _description: A great electrical energy wave passes through space, lightly damaging
+    all enemy ships with no chance to evade.
   _graphic: {fileID: 0}
+  _slotsRequired: 1
   _target: 1
-  _ignoreEvasion: 0
+  _ignoreEvasion: 1
   _damage: 1
+  _numberOfShots: 1
   _ignoreDamageReduction: 1
-  _destroyComponentLikelihood: 0.5
+  _destroyComponentChance: 0
+  _costToFire: 1

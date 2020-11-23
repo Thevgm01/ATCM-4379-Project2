@@ -8,7 +8,4 @@ public abstract class ComponentCardData : CardData
 
     [SerializeField] int _slotsRequired = 1;
     public int SlotsRequired => _slotsRequired;
-
-    [SerializeField] int _costToInstall = 1;
-    public int CostToInstall => _costToInstall;
 }

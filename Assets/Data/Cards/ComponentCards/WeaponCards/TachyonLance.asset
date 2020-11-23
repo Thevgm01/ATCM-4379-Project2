@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a953e204d5bd85489a81c9ffe0bc954, type: 3}
   m_Name: TachyonLance
   m_EditorClassIdentifier: 
-  _name: ...
-  _description: ...
+  _name: Tachyon Lance
+  _description: Charges up a great beam of energy that hits instantly and fries most
+    components on board.
   _graphic: {fileID: 0}
-  _slotsRequired: 1
-  _costToInstall: 1
+  _slotsRequired: 4
   _target: 0
-  _ignoreEvasion: 0
-  _damage: 1
+  _ignoreEvasion: 1
+  _damage: 2
+  _numberOfShots: 5
   _ignoreDamageReduction: 0
-  _destroyComponentLikelihood: 0
+  _destroyComponentChance: 0.5
+  _costToFire: 4

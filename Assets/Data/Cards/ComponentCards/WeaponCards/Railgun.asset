@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a953e204d5bd85489a81c9ffe0bc954, type: 3}
   m_Name: Railgun
   m_EditorClassIdentifier: 
-  _name: ...
-  _description: ...
+  _name: Railgun
+  _description: A small projectile is accelerated to sub-light speeds, easily penetrating
+    all forms of armor and damaging the ship's internals.
   _graphic: {fileID: 0}
+  _slotsRequired: 2
   _target: 0
   _ignoreEvasion: 0
-  _damage: 1
-  _ignoreDamageReduction: 0
-  _destroyComponentLikelihood: 0
+  _damage: 5
+  _numberOfShots: 1
+  _ignoreDamageReduction: 1
+  _destroyComponentChance: 0.2
+  _costToFire: 1

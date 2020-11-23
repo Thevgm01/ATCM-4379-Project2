@@ -12,11 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a953e204d5bd85489a81c9ffe0bc954, type: 3}
   m_Name: BlackHole
   m_EditorClassIdentifier: 
-  _name: BlackHole
-  _description: ...
+  _name: Black Hole
+  _description: An extremely localized gravitational field create a small black hole
+    inside the target ship. Does enormous guaranteed damage, but is expensive to
+    install and fire.
   _graphic: {fileID: 0}
+  _slotsRequired: 3
   _target: 0
   _ignoreEvasion: 1
-  _damage: 5
+  _damage: 10
+  _numberOfShots: 1
   _ignoreDamageReduction: 1
-  _destroyComponentLikelihood: 0
+  _destroyComponentChance: 0
+  _costToFire: 3

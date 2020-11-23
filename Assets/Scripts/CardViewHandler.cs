@@ -26,8 +26,16 @@ public class CardViewHandler : MonoBehaviour
 
     [SerializeField] [Range(0f, 10f)] float lerpSpeed;
 
-    Dictionary<Card, CardView> cardsViewDictionary = new Dictionary<Card, CardView>();
-    //Dictionary<CardView, Card> cardsViewDictionary_inverse;
+    Dictionary<Card, CardView> cardsViewDictionary;
+    Dictionary<CardView, Card> cardsViewDictionary_inverse;
+
+    CardView hoveredCard;
+
+    void Awake()
+    {
+        cardsViewDictionary = new Dictionary<Card, CardView>();
+        cardsViewDictionary_inverse = new Dictionary<CardView, Card>();
+    }
 
     public void CreateNewCardView(Card card, CardData cardData)
     {
@@ -35,7 +43,9 @@ public class CardViewHandler : MonoBehaviour
         newCardGameObject.name = cardData.Name;
         var cardView = newCardGameObject.GetComponent<CardView>();
         cardView.LoadCardData(cardData);
+        cardView.MouseOver += CardHovered;
         cardsViewDictionary.Add(card, cardView);
+        cardsViewDictionary_inverse.Add(cardView, card);
     }
 
     public void ReorganizeDraw(Card newCard)
@@ -45,7 +55,7 @@ public class CardViewHandler : MonoBehaviour
 
     public void ReorganizeHand(Card newCard)
     {
-        ReorganizeDeck(newCard, cardPlayer.hand, handPile, new Vector3(1f, 0, -0.1f), CardStacking.Centered, true);
+        ReorganizeDeck(newCard, cardPlayer.hand, handPile, new Vector3(3f, 0, -0.1f), CardStacking.Centered, true);
     }
 
     public void ReorganizeDiscard(Card newCard)
@@ -60,8 +70,13 @@ public class CardViewHandler : MonoBehaviour
 
     private void ReorganizeDeck(Card newCard, Deck<Card> deck, Transform pile, Vector3 offset, CardStacking stacking, bool visibility)
     {
-        if (deck.Contains(newCard))
+        if (newCard != null && deck.Contains(newCard))
             cardsViewDictionary[newCard].transform.parent = pile;
+
+        if (stacking == CardStacking.Centered && deck.Count > 3)
+        {
+            offset.x = offset.x / (deck.Count - 1) * 2;
+        }
 
         int i = 0;
         foreach (Card card in deck)
@@ -86,6 +101,24 @@ public class CardViewHandler : MonoBehaviour
         foreach (CardView cardView in cardsViewDictionary.Values)
         {
             cardView.Move(lerpAmount);
+        }
+    }
+
+    void CardHovered(CardView cardView)
+    {
+        if (cardView == hoveredCard) return;
+        if (Input.GetAxis("Mouse X") == 0 && Input.GetAxis("Mouse Y") == 0) return;
+
+        Card card = cardsViewDictionary_inverse[cardView];
+        if (cardPlayer.hand.Contains(card))
+        {
+            hoveredCard = cardView;
+            ReorganizeHand(null);
+            hoveredCard.SetPosition(hoveredCard.desiredPosition + new Vector3(0, 2, -2));
+        }
+        else
+        {
+            ReorganizeHand(null);
         }
     }
 }

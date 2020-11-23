@@ -12,11 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a953e204d5bd85489a81c9ffe0bc954, type: 3}
   m_Name: DisplacementGun
   m_EditorClassIdentifier: 
-  _name: Displacement Gun
-  _description: ...
+  _name: Displacer
+  _description: A smaller version of the Black Hole, the Displacer distors space
+    to tear off sections of an enemy ship's hull. Expensive to fire, but has a very
+    high chance to rip off a component.
   _graphic: {fileID: 0}
+  _slotsRequired: 1
   _target: 0
-  _ignoreEvasion: 1
+  _ignoreEvasion: 0
   _damage: 3
+  _numberOfShots: 1
   _ignoreDamageReduction: 0
-  _destroyComponentLikelihood: 0.75
+  _destroyComponentChance: 0.33
+  _costToFire: 2

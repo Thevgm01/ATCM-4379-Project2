@@ -614,6 +614,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4467364813835517031}
   - component: {fileID: 3793297163623637046}
+  - component: {fileID: 576765949412289387}
   m_Layer: 0
   m_Name: Card
   m_TagString: Untagged
@@ -653,6 +654,19 @@ MonoBehaviour:
   title: {fileID: 2245076917196521789}
   description: {fileID: 3884771436190016381}
   image: {fileID: 6188693607081563779}
+--- !u!65 &576765949412289387
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6372261167743993835}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 4.854, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9144708223677228344
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CardView : MonoBehaviour
 {
+    public Action<CardView> MouseOver = delegate { };
+
     [SerializeField] GameObject sensetiveInformation;
     [SerializeField] TMPro.TextMeshPro title;
     [SerializeField] TMPro.TextMeshPro description;
     [SerializeField] SpriteRenderer image;
 
-    private Vector3 desiredPosition;
+    public Vector3 desiredPosition { get; private set; }
     private bool moving;
 
     private float curAngle = 0;
@@ -76,7 +79,12 @@ public class CardView : MonoBehaviour
                 if(curAngle == 180) sensetiveInformation.SetActive(true);
                 rotating = false;
             }
-            transform.rotation = Quaternion.Euler(0, curAngle, 0);
+            transform.localRotation = Quaternion.Euler(0, curAngle, 0);
         }
+    }
+
+    void OnMouseOver()
+    {
+        if(Visible) MouseOver?.Invoke(this);
     }
 }

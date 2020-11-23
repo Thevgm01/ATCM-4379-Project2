@@ -13,10 +13,14 @@ MonoBehaviour:
   m_Name: Scattergun
   m_EditorClassIdentifier: 
   _name: ...
-  _description: ...
+  _description: Fires four pellets simultaneously, damaging light targets but being
+    stopped by armor.
   _graphic: {fileID: 0}
+  _slotsRequired: 1
   _target: 0
   _ignoreEvasion: 0
   _damage: 1
+  _numberOfShots: 4
   _ignoreDamageReduction: 0
-  _destroyComponentLikelihood: 0
+  _destroyComponentChance: 0.1
+  _costToFire: 1

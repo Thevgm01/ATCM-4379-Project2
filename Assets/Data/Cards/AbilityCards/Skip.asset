@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be2a0d23e3e2b104e89a9f7c9ed82736, type: 3}
   m_Name: Skip
   m_EditorClassIdentifier: 
-  _name: Skip
+  _name: Skip!
   _description: Skips the next gun in the weapon queue.
   _graphic: {fileID: 0}
   _cost: 1
