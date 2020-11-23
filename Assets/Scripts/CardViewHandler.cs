@@ -41,8 +41,12 @@ public class CardViewHandler : MonoBehaviour
     {
         var newCardGameObject = Instantiate(cardPrefab);
         newCardGameObject.name = cardData.Name;
+
         var cardView = newCardGameObject.GetComponent<CardView>();
         cardView.LoadCardData(cardData);
+        //if (cardVisibilityOverride == CardVisibility.Always) cardView.SetVisible(true);
+        //else if (cardVisibilityOverride == CardVisibility.Never) cardView.SetVisible(false);
+
         cardView.MouseOver += CardHovered;
         cardsViewDictionary.Add(card, cardView);
         cardsViewDictionary_inverse.Add(cardView, card);
@@ -73,9 +77,9 @@ public class CardViewHandler : MonoBehaviour
         if (newCard != null && deck.Contains(newCard))
             cardsViewDictionary[newCard].transform.parent = pile;
 
-        if (stacking == CardStacking.Centered && deck.Count > 3)
+        if (stacking == CardStacking.Centered && deck.Count > 4)
         {
-            offset.x = offset.x / (deck.Count - 1) * 2;
+            offset.x = 4 * offset.x / deck.Count;
         }
 
         int i = 0;

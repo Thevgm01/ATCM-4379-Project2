@@ -69,14 +69,11 @@ public class CardView : MonoBehaviour
             if (rotDelta < 0.001f)
             {
                 curAngle -= rotDelta * lerpAmount;
-
-                //if (curAngle >= 90 && Visible) sensetiveInformation.SetActive(false);
-                //else if (curAngle < 90 && !Visible) sensetiveInformation.SetActive(true);
             }
             else
             {
                 curAngle = flipAngle;
-                if(curAngle == 180) sensetiveInformation.SetActive(true);
+                if(curAngle == -180) sensetiveInformation.SetActive(false);
                 rotating = false;
             }
             transform.localRotation = Quaternion.Euler(0, curAngle, 0);

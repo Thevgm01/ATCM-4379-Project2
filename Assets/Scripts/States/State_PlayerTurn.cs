@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class State_PlayerTurn : StateMachineBehaviour
 {
+    public GameObject button;
+
     Animator _animator;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state

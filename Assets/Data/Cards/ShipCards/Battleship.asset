@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Battleship
   m_EditorClassIdentifier: 
   _name: Battleship
-  _description: ...
+  _description: 
   _graphic: {fileID: 21300000, guid: ac3b8a7a2aa00744ab8eb6d210d6c297, type: 3}
   _model: {fileID: 0}
   _maxHitPoints: 35

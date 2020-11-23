@@ -18,7 +18,7 @@ public class ShipMover : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        startPos = transform.position;   
+        startPos = transform.position;
     }
 
     // Update is called once per frame
@@ -29,6 +29,6 @@ public class ShipMover : MonoBehaviour
         transform.position = startPos + new Vector3(x, y, 0);
 
         bank = Mathf.Lerp(bank, x, 0.1f);
-        transform.rotation = Quaternion.Euler(0, bank * bankScale, 0);
+        transform.localRotation = Quaternion.Euler(0, bank * bankScale, 0);
     }
 }

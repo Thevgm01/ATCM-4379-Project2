@@ -11,17 +11,22 @@ public abstract class CardPlayer : MonoBehaviour
 
     CardViewHandler cardViewer;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         draw = new Deck<Card>();
         hand = new Deck<Card>();
         discard = new Deck<Card>();
         weaponQueue = new Deck<Card>();
 
-        draw.Emptied += ShuffleOnEmpty;
+        fleet = new List<Ship>();
 
         cardViewer = GetComponent<CardViewHandler>();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        draw.Emptied += ShuffleOnEmpty;
 
         if (cardViewer != null)
         {
@@ -35,7 +40,6 @@ public abstract class CardPlayer : MonoBehaviour
             weaponQueue.CardRemoved += cardViewer.ReorganizeWeaponQueue;
         }
 
-        fleet = new List<Ship>();
         //cardsView = new List<CardView>();
 
         foreach (CardData cardData in startingDeck.Cards)

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: DisplacementGun
   m_EditorClassIdentifier: 
   _name: Displacer
-  _description: A smaller version of the Black Hole, the Displacer distors space
-    to tear off sections of an enemy ship's hull. Expensive to fire, but has a very
-    high chance to rip off a component.
+  _description: A smaller version of the Black Hole, the Displacer distorts space
+    in order to tear off sections of an enemy ship's hull. Expensive to fire, but
+    has a very high chance to rip off a component.
   _graphic: {fileID: 0}
   _slotsRequired: 1
   _target: 0
