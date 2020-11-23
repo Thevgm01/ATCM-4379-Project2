@@ -4,18 +4,15 @@ using UnityEngine;
 
 public class AbilityCard : Card
 {
-    public int Cost { get; private set; }
-    public Sprite Graphic { get; private set; }
+    public AbilityCardData Data { get; private set; }
 
-    public AbilityCard(AbilityCardData Data)
+    public AbilityCard(AbilityCardData cardData)
     {
-        Name = Data.Name;
-        Cost = Data.Cost;
-        Graphic = Data.Graphic;
+        Data = cardData;
     }
 
     public override void Play()
     {
-        Debug.Log("Playing ability card: " + Name);
+        throw new System.NotImplementedException();
     }
 }

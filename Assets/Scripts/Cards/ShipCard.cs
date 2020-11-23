@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipCard : MonoBehaviour
+public class ShipCard : Card
 {
-    // Start is called before the first frame update
-    void Start()
+    public ShipCardData Data { get; private set; }
+
+    public ShipCard(ShipCardData cardData)
     {
-        
+        Data = cardData;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Play()
     {
-        
+        throw new System.NotImplementedException();
     }
 }

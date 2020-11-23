@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponCard : Card
+public class DefenseCard : Card
 {
-    public WeaponCardData Data { get; private set; }
+    public DefenseCardData Data { get; private set; }
 
-    public WeaponCard(WeaponCardData cardData)
+    public DefenseCard(DefenseCardData cardData)
     {
         Data = cardData;
     }

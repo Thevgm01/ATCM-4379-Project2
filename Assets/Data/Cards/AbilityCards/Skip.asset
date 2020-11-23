@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be2a0d23e3e2b104e89a9f7c9ed82736, type: 3}
+  m_Name: Skip
+  m_EditorClassIdentifier: 
+  _name: Skip
+  _description: Skips the next gun in the weapon queue.
+  _graphic: {fileID: 0}
+  _cost: 1
