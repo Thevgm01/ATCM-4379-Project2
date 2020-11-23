@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a953e204d5bd85489a81c9ffe0bc954, type: 3}
-  m_Name: Scattergun
+  m_Name: TachyonLance
   m_EditorClassIdentifier: 
   _name: ...
   _description: ...
   _graphic: {fileID: 0}
+  _slotsRequired: 1
+  _costToInstall: 1
   _target: 0
   _ignoreEvasion: 0
   _damage: 1

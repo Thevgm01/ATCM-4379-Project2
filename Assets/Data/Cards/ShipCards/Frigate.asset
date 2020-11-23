@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Frigate
   _description: ...
-  _graphic: {fileID: 0}
+  _graphic: {fileID: 21300000, guid: a9cc16ebf658b754f9d4b477ed796402, type: 3}
   _model: {fileID: 0}
   _maxHitPoints: 10
   _baseEvasionChance: 0.33

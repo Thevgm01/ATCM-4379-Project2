@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Cruiser
   _description: ...
-  _graphic: {fileID: 0}
+  _graphic: {fileID: 21300000, guid: 64d4b816fb4e08a49987b46fd0a625f2, type: 3}
   _model: {fileID: 0}
   _maxHitPoints: 20
   _baseEvasionChance: 0.1

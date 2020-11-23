@@ -74,6 +74,11 @@ public class Deck <T> where T : Card
         return RemoveAt(IndexFromDeckPosition(deckPosition));
     }
 
+    public bool Contains(T card)
+    {
+        return _cards.Contains(card);
+    }
+
     public T Remove(T card)
     {
         if(!_cards.Contains(card))
@@ -131,5 +136,10 @@ public class Deck <T> where T : Card
         }
 
         return -1;
+    }
+
+    public IEnumerator GetEnumerator()
+    {
+        return _cards.GetEnumerator();
     }
 }

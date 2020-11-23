@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Fighter
   _description: ...
-  _graphic: {fileID: 0}
+  _graphic: {fileID: 21300000, guid: f1367fe8e53ebfc43a1c30dd79edc331, type: 3}
   _model: {fileID: 0}
   _maxHitPoints: 5
   _baseEvasionChance: 0.5

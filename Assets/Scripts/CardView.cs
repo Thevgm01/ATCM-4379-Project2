@@ -8,14 +8,14 @@ public class CardView : MonoBehaviour
     [SerializeField] TMPro.TextMeshPro title;
     [SerializeField] TMPro.TextMeshPro description;
     [SerializeField] SpriteRenderer image;
-    [SerializeField] [Range(0f, 1f)] float lerpSpeed;
 
+    private Vector3 desiredPosition;
     private bool moving;
-    private Quaternion rightSideUp = Quaternion.identity;
-    private Quaternion upsideDown = Quaternion.Euler(0, 180, 0);
 
-    public Vector3 desiredPosition;
-    public bool isVisible;
+    private float curAngle = 0;
+    private float flipAngle = 0;
+    private bool Visible => sensetiveInformation.activeSelf;
+    private bool rotating;
 
     public void LoadCardData(CardData card)
     {
@@ -24,18 +24,59 @@ public class CardView : MonoBehaviour
         image.sprite = card.Graphic;
     }
 
-    public void SetVisible(bool visible)
+    public void SetPosition(Vector3 position)
     {
-        sensetiveInformation.SetActive(visible);
+        desiredPosition = position;
+        moving = true;
     }
 
-    void Update()
+    public void SetVisible(bool visible)
     {
-        if(moving)
+        if (visible)
         {
-            float lerpAmount = lerpSpeed * Time.deltaTime;
-            transform.position = Vector3.Lerp(transform.position, desiredPosition, lerpAmount)
-            transform.rotation = Quaternion.Slerp(transform.rotation, desiredPosition, lerpAmount)
+            flipAngle = 0;
+            sensetiveInformation.SetActive(true);
+        }
+        else
+        {
+            flipAngle = -180;
+        }
+        rotating = true;
+    }
+
+    public void Move(float lerpAmount)
+    {
+        if (moving)
+        {
+            Vector3 posDelta = desiredPosition - transform.localPosition;
+            if(posDelta.sqrMagnitude > 0.001f)
+            {
+                transform.localPosition += posDelta * lerpAmount;
+            }
+            else
+            {
+                transform.localPosition = desiredPosition;
+                moving = false;
+            }
+        }
+
+        if(rotating)
+        {
+            float rotDelta = curAngle - flipAngle;
+            if (rotDelta < 0.001f)
+            {
+                curAngle -= rotDelta * lerpAmount;
+
+                //if (curAngle >= 90 && Visible) sensetiveInformation.SetActive(false);
+                //else if (curAngle < 90 && !Visible) sensetiveInformation.SetActive(true);
+            }
+            else
+            {
+                curAngle = flipAngle;
+                if(curAngle == 180) sensetiveInformation.SetActive(true);
+                rotating = false;
+            }
+            transform.rotation = Quaternion.Euler(0, curAngle, 0);
         }
     }
 }

@@ -4,15 +4,12 @@ using UnityEngine;
 
 public abstract class CardPlayer : MonoBehaviour
 {
-    Deck<Card> draw, hand, discard, weaponQueue;
+    public Deck<Card> draw, hand, discard, weaponQueue;
     List<Ship> fleet;
 
-    List<CardView> cardsView;
-    Dictionary<Card, CardView> cardsViewDictionary;
-
     [SerializeField] StartingDeck startingDeck;
-    [SerializeField] Transform drawPile, handPile, discardPile;
-    [SerializeField] GameObject cardGameObject;
+
+    CardViewHandler cardViewer;
 
     // Start is called before the first frame update
     void Start()
@@ -24,42 +21,52 @@ public abstract class CardPlayer : MonoBehaviour
 
         draw.Emptied += ShuffleOnEmpty;
 
+        cardViewer = GetComponent<CardViewHandler>();
+
+        if (cardViewer != null)
+        {
+            draw.CardAdded += cardViewer.ReorganizeDraw;
+            draw.CardRemoved += cardViewer.ReorganizeDraw;
+            hand.CardAdded += cardViewer.ReorganizeHand;
+            hand.CardRemoved += cardViewer.ReorganizeHand;
+            discard.CardAdded += cardViewer.ReorganizeDiscard;
+            discard.CardRemoved += cardViewer.ReorganizeDiscard;
+            weaponQueue.CardAdded += cardViewer.ReorganizeWeaponQueue;
+            weaponQueue.CardRemoved += cardViewer.ReorganizeWeaponQueue;
+        }
+
         fleet = new List<Ship>();
-        cardsView = new List<CardView>();
-        cardsViewDictionary = new Dictionary<Card, CardView>();
+        //cardsView = new List<CardView>();
 
         foreach (CardData cardData in startingDeck.Cards)
         {
-            CreateNewCard(cardData);
+            if(cardData == null)
+            {
+                Debug.LogWarning("Missing card in starting deck: " + startingDeck.Name);
+                continue;
+            }
+            Card card = CreateNewCard(cardData);
+            cardViewer?.CreateNewCardView(card, cardData);
+            draw.Add(card);
         }
     }
 
-    void CreateNewCard(CardData cardData)
+    Card CreateNewCard(CardData cardData)
     {
         Card newCard = null;
+
         if (cardData is AbilityCardData) newCard = new AbilityCard((AbilityCardData)cardData);
         else if (cardData is DefenseCardData) newCard = new DefenseCard((DefenseCardData)cardData);
         else if (cardData is ShipCardData) newCard = new ShipCard((ShipCardData)cardData);
         else if (cardData is WeaponCardData) newCard = new WeaponCard((WeaponCardData)cardData);
         else Debug.LogError("Unsupported CardData type.");
 
-        draw.Add(newCard);
-
-        var newCardGameObject = Instantiate(cardGameObject);
-        var cardView = newCardGameObject.GetComponent<CardView>();
-        cardView.LoadCardData(cardData);
-        cardsView.Add(cardView);
+        return newCard;
     }
 
     void ShuffleOnEmpty()
     {
         discard.Shuffle();
         draw.MergeDeck(discard);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
