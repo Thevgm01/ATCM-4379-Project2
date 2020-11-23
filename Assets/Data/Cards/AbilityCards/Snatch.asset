@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Snatch
   m_EditorClassIdentifier: 
   _name: Snatch!
-  _description: Brings a destroyed component or ship into your hand.
+  _description: Brings a destroyed component into your hand.
   _graphic: {fileID: 0}
+  _target: 6
   _cost: 1

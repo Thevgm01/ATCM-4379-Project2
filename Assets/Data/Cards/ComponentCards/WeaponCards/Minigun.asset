@@ -16,8 +16,8 @@ MonoBehaviour:
   _description: Five shots are fired out of a multibarrel gun, shredding light or
     immobile targets.
   _graphic: {fileID: 0}
+  _target: 4
   _slotsRequired: 2
-  _target: 0
   _ignoreEvasion: 0
   _damage: 2
   _numberOfShots: 5

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Card
 {
-    public string Name { get; protected set; } = "...";
+    public CardData Data { get; protected set; } = null;
 
-    public abstract void Play();
+    public abstract void Play(Transform target);
 }

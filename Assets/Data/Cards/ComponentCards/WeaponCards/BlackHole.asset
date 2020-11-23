@@ -17,8 +17,8 @@ MonoBehaviour:
     inside the target ship. Does enormous guaranteed damage, but is expensive to
     install and fire.
   _graphic: {fileID: 0}
+  _target: 4
   _slotsRequired: 3
-  _target: 0
   _ignoreEvasion: 1
   _damage: 10
   _numberOfShots: 1

@@ -21,18 +21,21 @@ public class CardViewHandler : MonoBehaviour
 
     public CardVisibility cardVisibilityOverride;
 
-    [SerializeField] Transform drawPile, handPile, discardPile, weaponQueuePile;
+    public Transform drawPile, handPile, discardPile, weaponQueuePile;
+    CardView cardPiles;
+    float defaultHeight;
     [SerializeField] GameObject cardPrefab;
 
     [SerializeField] [Range(0f, 10f)] float lerpSpeed;
 
-    Dictionary<Card, CardView> cardsViewDictionary;
-    Dictionary<CardView, Card> cardsViewDictionary_inverse;
-
-    CardView hoveredCard;
+    public Dictionary<Card, CardView> cardsViewDictionary;
+    public Dictionary<CardView, Card> cardsViewDictionary_inverse;
 
     void Awake()
     {
+        cardPiles = drawPile.parent.gameObject.AddComponent<CardView>();
+        defaultHeight = cardPiles.transform.localPosition.y;
+
         cardsViewDictionary = new Dictionary<Card, CardView>();
         cardsViewDictionary_inverse = new Dictionary<CardView, Card>();
     }
@@ -47,27 +50,26 @@ public class CardViewHandler : MonoBehaviour
         //if (cardVisibilityOverride == CardVisibility.Always) cardView.SetVisible(true);
         //else if (cardVisibilityOverride == CardVisibility.Never) cardView.SetVisible(false);
 
-        cardView.MouseOver += CardHovered;
         cardsViewDictionary.Add(card, cardView);
         cardsViewDictionary_inverse.Add(cardView, card);
     }
 
-    public void ReorganizeDraw(Card newCard)
+    public void ReorganizeDraw(Card newCard = null)
     {
         ReorganizeDeck(newCard, cardPlayer.draw, drawPile, new Vector3(0, 0, -0.1f), CardStacking.Ascending, false);
     }
 
-    public void ReorganizeHand(Card newCard)
+    public void ReorganizeHand(Card newCard = null)
     {
         ReorganizeDeck(newCard, cardPlayer.hand, handPile, new Vector3(3f, 0, -0.1f), CardStacking.Centered, true);
     }
 
-    public void ReorganizeDiscard(Card newCard)
+    public void ReorganizeDiscard(Card newCard = null)
     {
         ReorganizeDeck(newCard, cardPlayer.discard, discardPile, new Vector3(0, 0, -0.1f), CardStacking.Ascending, true);
     }
 
-    public void ReorganizeWeaponQueue(Card newCard)
+    public void ReorganizeWeaponQueue(Card newCard = null)
     {
         ReorganizeDeck(newCard, cardPlayer.weaponQueue, weaponQueuePile, new Vector3(0, 1f, -0.1f), CardStacking.Centered, true);
     }
@@ -102,27 +104,21 @@ public class CardViewHandler : MonoBehaviour
     {
         float lerpAmount = lerpSpeed * Time.deltaTime;
 
+        cardPiles.Move(lerpAmount);
+
         foreach (CardView cardView in cardsViewDictionary.Values)
         {
             cardView.Move(lerpAmount);
         }
     }
 
-    void CardHovered(CardView cardView)
+    public void MoveCardsOutOfTheWay()
     {
-        if (cardView == hoveredCard) return;
-        if (Input.GetAxis("Mouse X") == 0 && Input.GetAxis("Mouse Y") == 0) return;
+        cardPiles.SetPosition(new Vector3(0, defaultHeight - 4, 0));
+    }
 
-        Card card = cardsViewDictionary_inverse[cardView];
-        if (cardPlayer.hand.Contains(card))
-        {
-            hoveredCard = cardView;
-            ReorganizeHand(null);
-            hoveredCard.SetPosition(hoveredCard.desiredPosition + new Vector3(0, 2, -2));
-        }
-        else
-        {
-            ReorganizeHand(null);
-        }
+    public void MoveCardsBack()
+    {
+        cardPiles.SetPosition(new Vector3(0, defaultHeight, 0));
     }
 }

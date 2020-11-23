@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class ShipCard : Card
 {
-    public ShipCardData Data { get; private set; }
+    ShipCardData Data;
 
     public ShipCard(ShipCardData cardData)
     {
         Data = cardData;
     }
 
-    public override void Play()
+    public override void Play(Transform target)
     {
+        Instantiate(Data.Model, target);
         throw new System.NotImplementedException();
     }
 }

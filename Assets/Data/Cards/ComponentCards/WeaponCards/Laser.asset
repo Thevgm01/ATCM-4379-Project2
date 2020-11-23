@@ -16,8 +16,8 @@ MonoBehaviour:
   _description: A focused beam of light that costs nothing, does little damage, and
     cuts through components.
   _graphic: {fileID: 0}
+  _target: 4
   _slotsRequired: 1
-  _target: 0
   _ignoreEvasion: 1
   _damage: 1
   _numberOfShots: 1

@@ -5,16 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Weapon Card", menuName = "Card Data/Weapon Card")]
 public class WeaponCardData : ComponentCardData
 {
-    public enum TargetType
-    {
-        Single,
-        All
-    }
-
     [Header("Weapon Info")]
-
-    [SerializeField] TargetType _target = TargetType.Single;
-    public TargetType Target => _target;
 
     //[SerializeField] [Range(0f, 1f)] float _chanceToHit = 1;
     //public float ChanceToHit => _chanceToHit;

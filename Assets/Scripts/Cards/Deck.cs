@@ -83,7 +83,7 @@ public class Deck <T> where T : Card
     {
         if(!_cards.Contains(card))
         {
-            Debug.LogWarning("Deck: Does not contain card " + card.Name + ".");
+            Debug.LogWarning("Deck: Does not contain card " + card.Data.Name + ".");
             return default(T);
         }
 

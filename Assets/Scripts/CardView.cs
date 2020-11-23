@@ -14,6 +14,7 @@ public class CardView : MonoBehaviour
 
     public Vector3 desiredPosition { get; private set; }
     private bool moving;
+    private bool world;
 
     private float curAngle = 0;
     private float flipAngle = 0;
@@ -27,10 +28,11 @@ public class CardView : MonoBehaviour
         image.sprite = card.Graphic;
     }
 
-    public void SetPosition(Vector3 position)
+    public void SetPosition(Vector3 position, bool worldRelative = false)
     {
         desiredPosition = position;
         moving = true;
+        world = worldRelative;
     }
 
     public void SetVisible(bool visible)
@@ -51,15 +53,31 @@ public class CardView : MonoBehaviour
     {
         if (moving)
         {
-            Vector3 posDelta = desiredPosition - transform.localPosition;
-            if(posDelta.sqrMagnitude > 0.001f)
+            if (world)
             {
-                transform.localPosition += posDelta * lerpAmount;
+                Vector3 posDelta = desiredPosition - transform.position;
+                if (posDelta.sqrMagnitude > 0.001f)
+                {
+                    transform.position += posDelta * lerpAmount;
+                }
+                else
+                {
+                    transform.position = desiredPosition;
+                    moving = false;
+                }
             }
             else
             {
-                transform.localPosition = desiredPosition;
-                moving = false;
+                Vector3 posDelta = desiredPosition - transform.localPosition;
+                if (posDelta.sqrMagnitude > 0.001f)
+                {
+                    transform.localPosition += posDelta * lerpAmount;
+                }
+                else
+                {
+                    transform.localPosition = desiredPosition;
+                    moving = false;
+                }
             }
         }
 

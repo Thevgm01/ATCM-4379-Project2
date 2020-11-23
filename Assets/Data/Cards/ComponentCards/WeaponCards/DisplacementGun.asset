@@ -17,8 +17,8 @@ MonoBehaviour:
     in order to tear off sections of an enemy ship's hull. Expensive to fire, but
     has a very high chance to rip off a component.
   _graphic: {fileID: 0}
+  _target: 4
   _slotsRequired: 1
-  _target: 0
   _ignoreEvasion: 0
   _damage: 3
   _numberOfShots: 1

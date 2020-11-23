@@ -9,7 +9,11 @@ public abstract class CardPlayer : MonoBehaviour
 
     [SerializeField] StartingDeck startingDeck;
 
-    CardViewHandler cardViewer;
+    [SerializeField] Animator gameStateMachine;
+
+    protected CardViewHandler cardViewer;
+
+    public Collider field;
 
     void Awake()
     {
@@ -24,7 +28,7 @@ public abstract class CardPlayer : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
         draw.Emptied += ShuffleOnEmpty;
 
@@ -42,6 +46,18 @@ public abstract class CardPlayer : MonoBehaviour
 
         //cardsView = new List<CardView>();
 
+        foreach (CardData cardData in startingDeck.StartingCards)
+        {
+            if (cardData == null)
+            {
+                Debug.LogWarning("Missing card in starting deck: " + startingDeck.Name);
+                continue;
+            }
+            Card card = CreateNewCard(cardData);
+            cardViewer?.CreateNewCardView(card, cardData);
+            hand.Add(card);
+        }
+
         foreach (CardData cardData in startingDeck.Cards)
         {
             if(cardData == null)
@@ -53,6 +69,8 @@ public abstract class CardPlayer : MonoBehaviour
             cardViewer?.CreateNewCardView(card, cardData);
             draw.Add(card);
         }
+
+        draw.Shuffle();
     }
 
     Card CreateNewCard(CardData cardData)
@@ -72,5 +90,30 @@ public abstract class CardPlayer : MonoBehaviour
     {
         discard.Shuffle();
         draw.MergeDeck(discard);
+    }
+
+    protected bool IsValidTarget(CardData.TargetType target, Transform transform)
+    {
+        Ship ship;
+
+        switch(target)
+        {
+            case CardData.TargetType.AllAllyShips: return transform != null;
+            case CardData.TargetType.AllEnemyShips: return transform != null;
+            case CardData.TargetType.AllyField: return transform == field.transform;
+            case CardData.TargetType.EnemyField: return transform != field.transform;
+            case CardData.TargetType.AllyShip:
+                ship = transform.GetComponent<Ship>();
+                if (ship != null)
+                    return ship.owner == this;
+                return false;
+            case CardData.TargetType.EnemyShip:
+                ship = transform.GetComponent<Ship>();
+                if (ship != null)
+                    return ship.owner != this;
+                return false;
+            default:
+                return false;
+        }
     }
 }

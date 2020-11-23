@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a953e204d5bd85489a81c9ffe0bc954, type: 3}
   m_Name: Scattergun
   m_EditorClassIdentifier: 
-  _name: ...
+  _name: Scattergun
   _description: Fires four pellets simultaneously, damaging light targets but being
     stopped by armor.
   _graphic: {fileID: 0}
+  _target: 4
   _slotsRequired: 1
-  _target: 0
   _ignoreEvasion: 0
   _damage: 1
   _numberOfShots: 4

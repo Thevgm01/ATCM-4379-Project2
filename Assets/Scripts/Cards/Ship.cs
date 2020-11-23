@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Ship
 {
+    public CardPlayer owner { get; private set; }
     Deck<Card> weapons, defenses;
 
     int maxHitPoints;

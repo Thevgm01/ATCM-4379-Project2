@@ -16,8 +16,8 @@ MonoBehaviour:
   _description: Charges up a great beam of energy that hits instantly and fries most
     components on board.
   _graphic: {fileID: 0}
+  _target: 4
   _slotsRequired: 4
-  _target: 0
   _ignoreEvasion: 1
   _damage: 2
   _numberOfShots: 5

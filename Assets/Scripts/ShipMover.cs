@@ -11,22 +11,28 @@ public class ShipMover : MonoBehaviour
 
     Vector3 startPos;
 
-    float xAngle = 0, xSpeed = 0, yAngle = 0, ySpeed = 0;
     float bank = 0;
-    float lastX = 0;
+
+    float time;
+    float randXOffset, randYOffset;
 
     // Start is called before the first frame update
     void Start()
     {
-        startPos = transform.position;
+        startPos = transform.localPosition;
+        if (transform.localRotation.eulerAngles.z > 90) bankScale = -bankScale;
+
+        randXOffset = Random.Range(0, 1000);
+        randYOffset = Random.Range(0, 1000);
     }
 
     // Update is called once per frame
     void Update()
     {
-        float x = (Mathf.PerlinNoise(Time.realtimeSinceStartup * speed, 0) - 0.5f) * maxX;
-        float y = (Mathf.PerlinNoise(Time.realtimeSinceStartup * speed, 100) - 0.5f) * maxY;
-        transform.position = startPos + new Vector3(x, y, 0);
+        time += speed * Time.deltaTime;
+        float x = (Mathf.PerlinNoise(time * speed, randXOffset) - 0.5f) * maxX;
+        float y = (Mathf.PerlinNoise(time * speed, randYOffset) - 0.5f) * maxY;
+        transform.localPosition = startPos + new Vector3(x, y, 0);
 
         bank = Mathf.Lerp(bank, x, 0.1f);
         transform.localRotation = Quaternion.Euler(0, bank * bankScale, 0);
