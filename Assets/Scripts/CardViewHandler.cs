@@ -71,19 +71,9 @@ public class CardViewHandler : MonoBehaviour
         ReorganizeDeck(newCard, cardPlayer.discard, discardPile, new Vector3(0, 0, -0.1f), CardStacking.Ascending, true);
     }
 
-    public void ReorganizeWeaponsToFire(Card newCard = null)
-    {
-        ReorganizeDeck(newCard, cardPlayer.weaponsToFire, weaponsToFirePile, new Vector3(0, 1f, -0.1f), CardStacking.Centered, true);
-    }
-
-    public void ReorganizeWeaponsFired(Card newCard = null)
-    {
-        ReorganizeDeck(newCard, cardPlayer.weaponsFired, weaponsFiredPile, new Vector3(0, 1f, -0.1f), CardStacking.Centered, true);
-    }
-
     private void ReorganizeDeck(Card newCard, Deck<Card> deck, Transform pile, Vector3 offset, CardStacking stacking, bool visibility)
     {
-        if (newCard != null && deck.Contains(newCard))
+        if (newCard != null)
             cardsViewDictionary[newCard].transform.parent = pile;
 
         if (stacking == CardStacking.Centered && deck.Count > 4)
@@ -115,6 +105,7 @@ public class CardViewHandler : MonoBehaviour
 
         foreach (CardView cardView in cardsViewDictionary.Values)
         {
+            if (cardView == null) continue;
             cardView.Move(lerpAmount);
         }
     }
@@ -132,8 +123,8 @@ public class CardViewHandler : MonoBehaviour
     public void DestroyCardView(Card card)
     {
         CardView cardView = cardsViewDictionary[card];
-        cardsViewDictionary.Remove(card);
-        cardsViewDictionary_inverse.Remove(cardView);
+        //cardsViewDictionary.Remove(card);
+        //cardsViewDictionary_inverse.Remove(cardView);
         //Instantiate(destroyCardParticles, cardView.transform.position, cardView.transform.rotation);
         Destroy(cardView.gameObject);
     }

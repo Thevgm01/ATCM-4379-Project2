@@ -27,3 +27,5 @@ MonoBehaviour:
   _costToFire: 1
   _particleEffect: {fileID: 5073776203729516959, guid: 1d3a6bceb703cb04685965fed04b8d50,
     type: 3}
+  _hitEffect: {fileID: 7239418028307647451, guid: d9ebc82cd6ba39f47ae4a457d5a8aee0,
+    type: 3}

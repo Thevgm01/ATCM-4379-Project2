@@ -12,6 +12,7 @@ public class CardPlayer_Human : CardPlayer
     CardView grabbedCardView = null;
 
     [SerializeField] TMPro.TextMeshProUGUI shipInfoGUI;
+    [SerializeField] TMPro.TextMeshProUGUI energyText;
 
     void Update()
     {
@@ -65,10 +66,10 @@ public class CardPlayer_Human : CardPlayer
 
         if (grabbedCard != null && Input.GetMouseButtonUp(0))
         {
-            TryPlayCard(grabbedCard, hit);
+            TryPlayCard(grabbedCard, hit.transform, hit.point);
             UngrabCard();
         }
-
+        /*
         if (Input.GetKeyDown(KeyCode.Q))
         {
             hand.Add(draw.Draw());
@@ -78,6 +79,8 @@ public class CardPlayer_Human : CardPlayer
         {
             discard.Add(hand.Draw());
         }
+        */
+        energyText.text = "Energy: " + energy;
     }
 
     void SetShipInfo(Ship s, Transform t)

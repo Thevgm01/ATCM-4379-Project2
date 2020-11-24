@@ -77,6 +77,10 @@ public class Ship : MonoBehaviour, IDamageable
         if(num > 0)
         {
             hitPoints -= num;
+            if(hitPoints <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

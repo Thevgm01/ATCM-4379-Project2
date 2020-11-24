@@ -16,4 +16,5 @@ MonoBehaviour:
   _description: Fire the next gun in your weapon queue. Returns to your hand after
     being played.
   _graphic: {fileID: 0}
+  _target: 4
   _cost: 1

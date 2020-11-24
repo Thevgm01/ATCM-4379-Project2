@@ -15,6 +15,7 @@ MonoBehaviour:
   _name: Default
   _startingCards:
   - {fileID: 11400000, guid: 92a6a8ecf18c81942aecf3727da833b2, type: 2}
+  - {fileID: 11400000, guid: 3e89963199336b7418f8b70020f62f6e, type: 2}
   _cards:
   - {fileID: 11400000, guid: dddd4cd47a2303a40a95059ab4d13eda, type: 2}
   - {fileID: 11400000, guid: dddd4cd47a2303a40a95059ab4d13eda, type: 2}
@@ -31,5 +32,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c5cd85d96364eca45b1948fa08f5a02f, type: 2}
   - {fileID: 11400000, guid: ec64dd147d846374688ab4767c91b309, type: 2}
   - {fileID: 11400000, guid: be98bf4036d2899489a6856c9a97fd8a, type: 2}
-  - {fileID: 11400000, guid: a0dbaa5b07d6d9441904b18217248f03, type: 2}
-  - {fileID: 11400000, guid: a0dbaa5b07d6d9441904b18217248f03, type: 2}

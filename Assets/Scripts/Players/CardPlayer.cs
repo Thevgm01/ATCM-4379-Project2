@@ -7,7 +7,7 @@ public abstract class CardPlayer : MonoBehaviour
 {
     public Action<Card> DestroyCard = delegate { };
 
-    public Deck<Card> draw, hand, discard, weaponsToFire, weaponsFired;
+    public Deck<Card> draw, hand, discard, weapons;
     List<Ship> fleet;
 
     [SerializeField] StartingDeck startingDeck;
@@ -18,13 +18,14 @@ public abstract class CardPlayer : MonoBehaviour
 
     public Collider field;
 
+    protected int energy = 0;
+
     void Awake()
     {
         draw = new Deck<Card>();
         hand = new Deck<Card>();
         discard = new Deck<Card>();
-        weaponsToFire = new Deck<Card>();
-        weaponsFired = new Deck<Card>();
+        weapons = new Deck<Card>();
 
         fleet = new List<Ship>();
 
@@ -46,10 +47,6 @@ public abstract class CardPlayer : MonoBehaviour
             hand.CardRemoved += cardViewer.ReorganizeHand;
             discard.CardAdded += cardViewer.ReorganizeDiscard;
             discard.CardRemoved += cardViewer.ReorganizeDiscard;
-            weaponsToFire.CardAdded += cardViewer.ReorganizeWeaponsFired;
-            weaponsToFire.CardRemoved += cardViewer.ReorganizeWeaponsFired;
-            weaponsFired.CardAdded += cardViewer.ReorganizeWeaponsFired;
-            weaponsFired.CardRemoved += cardViewer.ReorganizeWeaponsFired;
         }
 
         //cardsView = new List<CardView>();
@@ -81,6 +78,12 @@ public abstract class CardPlayer : MonoBehaviour
         draw.Shuffle();
     }
 
+    protected void BeginTurn()
+    {
+        hand.Add(draw.Draw());
+        energy += fleet.Count;
+    }
+
     Card CreateNewCard(CardData cardData)
     {
         Card newCard = null;
@@ -100,49 +103,58 @@ public abstract class CardPlayer : MonoBehaviour
         draw.MergeDeck(discard);
     }
 
-    protected bool IsValidTarget(CardData.TargetType target, Transform transform)
+    protected bool IsValidTarget(CardData.TargetType target, Transform t)
     {
         Ship ship;
-        Debug.Log("hello");
 
         switch (target)
         {
-            case CardData.TargetType.AllAllyShips: return transform != null;
-            case CardData.TargetType.AllEnemyShips: return transform != null;
-            case CardData.TargetType.AllyField: return transform == field.transform;
-            case CardData.TargetType.EnemyField: return transform != field.transform;
+            case CardData.TargetType.AllAllyShips: return t != null;
+            case CardData.TargetType.AllEnemyShips: return t != null;
+            case CardData.TargetType.AllyField: return t == field.transform;
+            case CardData.TargetType.EnemyField: return t != field.transform;
             case CardData.TargetType.AllyShip:
-                ship = transform.GetComponent<Ship>();
-                if (ship != null)
-                    return ship.owner == this;
-                return false;
+                ship = t.GetComponent<Ship>();
+                return ship != null && ship.owner == this;
             case CardData.TargetType.EnemyShip:
-                ship = transform.GetComponent<Ship>();
-                if (ship != null)
-                    return ship.owner != this;
-                return false;
+                ship = t.GetComponent<Ship>();
+                return ship != null && ship.owner != this;
             default:
                 return false;
         }
     }
 
-    protected void TryPlayCard(Card card, RaycastHit hit)
+    protected void TryPlayCard(Card card, Transform hit, Vector3 pos)
     {
         if (card.Data != null &&
             IsValidTarget(card.Data.Target, hit.transform))
         {
             if (card is ShipCard)
             {
-                fleet.Add(((ShipCard)card).MakeShip(this, hit.point, field.transform));
+                fleet.Add(((ShipCard)card).MakeShip(this, pos, field.transform));
                 DestroyCard?.Invoke(card);
                 GetDeck(card).Remove(card);
             }
             else if (card is WeaponCard)
             {
-                if (hit.transform.GetComponent<Ship>().TryAddWeapon((WeaponCard)card))
+                WeaponCard weapon = (WeaponCard)card;
+                Ship ship = hit.transform.GetComponent<Ship>();
+                if (ship.TryAddWeapon(weapon))
                 {
-                    GetDeck(card).Remove(card);
-                    weaponsFired.Add(card);
+                    weapon.installedShip = ship;
+                    weapons.Add(hand.Remove(card));
+                    DestroyCard?.Invoke(card);
+                }
+            }
+            else if (card is AbilityCard)
+            {
+                WeaponCard weapon = (WeaponCard)weapons.Peek();
+
+                if (energy >= ((WeaponCardData)weapon.Data).CostToFire)
+                {
+                    energy -= ((WeaponCardData)weapon.Data).CostToFire;
+                    weapon.AttackShip(hit.transform.GetComponent<Ship>());
+                    weapons.Add(weapons.Draw(), Deck<Card>.Position.Bottom);
                 }
             }
         }
@@ -153,8 +165,6 @@ public abstract class CardPlayer : MonoBehaviour
         if (draw.Contains(card)) return draw;
         if (hand.Contains(card)) return hand;
         if (discard.Contains(card)) return discard;
-        if (weaponsToFire.Contains(card)) return weaponsToFire;
-        if (weaponsFired.Contains(card)) return weaponsFired;
         return null;
     }
 }

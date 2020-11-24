@@ -26,6 +26,16 @@ public class CardView : MonoBehaviour
         title.text = card.Name;
         description.text = card.Description;
         image.sprite = card.Graphic;
+
+        if (card is WeaponCardData)
+        {
+            WeaponCardData weapon = (WeaponCardData)card;
+            description.text +=
+                "\nDamage: " + weapon.Damage +
+                "\nShots: " + weapon.NumberOfShots +
+                "\nComponent slots: " + weapon.SlotsRequired +
+                "\nEnergy to fire: " + weapon.CostToFire;
+        }
     }
 
     public void SetPosition(Vector3 position, bool worldRelative = false)

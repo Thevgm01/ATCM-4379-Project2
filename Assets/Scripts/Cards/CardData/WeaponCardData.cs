@@ -33,4 +33,7 @@ public class WeaponCardData : ComponentCardData
 
     [SerializeField] GameObject _particleEffect = null;
     public GameObject ParticleEffect => _particleEffect;
+
+    [SerializeField] GameObject _hitEffect = null;
+    public GameObject HitEffect => _hitEffect;
 }
