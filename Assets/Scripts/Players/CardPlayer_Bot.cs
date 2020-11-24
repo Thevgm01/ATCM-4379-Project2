@@ -4,18 +4,32 @@ using UnityEngine;
 
 public class CardPlayer_Bot : CardPlayer
 {
-    void Evaluate()
-    {
-        if (!draw.IsEmpty)
-        {
-            Card newCard = draw.Draw();
-            hand.Add(newCard);
-            if (newCard is ShipCard) TryPlayCard(newCard, field.transform, field.transform.position);
-        }
-    }
+    public CardPlayer opponent;
 
-    void Update()
+    public bool Evaluate()
     {
-        Evaluate();
+        foreach(Card c in hand)
+        {
+            if (c is ShipCard)
+            {
+                TryPlayCard(c, field.transform, field.transform.position);
+                return true;
+            }
+            else if (c is WeaponCard)
+            {
+                TryPlayCard(c, RandomShip().transform, field.transform.position);
+                return true;
+            }
+            else if (c is AbilityCard)
+            {
+                if (energy > 3)
+                {
+                    TryPlayCard(c, opponent.RandomShip().transform, Vector3.zero);
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

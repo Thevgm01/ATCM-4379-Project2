@@ -78,7 +78,15 @@ public abstract class CardPlayer : MonoBehaviour
         draw.Shuffle();
     }
 
-    protected void BeginTurn()
+    public Ship RandomShip()
+    {
+        foreach (Ship s in fleet) if (s == null) fleet.Remove(s);
+
+        if (fleet.Count == 0) return null;
+        return fleet[(int)UnityEngine.Random.Range(0, fleet.Count)];
+    }
+
+    public void BeginTurn()
     {
         hand.Add(draw.Draw());
         energy += fleet.Count;
@@ -149,10 +157,11 @@ public abstract class CardPlayer : MonoBehaviour
             else if (card is AbilityCard)
             {
                 WeaponCard weapon = (WeaponCard)weapons.Peek();
+                WeaponCardData weaponData = (WeaponCardData)weapon.Data;
 
-                if (energy >= ((WeaponCardData)weapon.Data).CostToFire)
+                if (energy >= weaponData.CostToFire)
                 {
-                    energy -= ((WeaponCardData)weapon.Data).CostToFire;
+                    energy -= weaponData.CostToFire;
                     weapon.AttackShip(hit.transform.GetComponent<Ship>());
                     weapons.Add(weapons.Draw(), Deck<Card>.Position.Bottom);
                 }
