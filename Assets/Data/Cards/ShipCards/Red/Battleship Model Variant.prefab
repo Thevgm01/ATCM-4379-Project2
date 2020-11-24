@@ -70,7 +70,13 @@ PrefabInstance:
     - target: {fileID: 3181557338608426110, guid: a298ddc53b935fe4fa7b2e6020a89d2f,
         type: 3}
       propertyPath: m_Name
-      value: Battleship Model
+      value: Battleship Model Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 3181557338608426111, guid: a298ddc53b935fe4fa7b2e6020a89d2f,
+        type: 3}
+      propertyPath: jumpParticles
+      value: 
+      objectReference: {fileID: 3634884758614331924, guid: 960c05b48fddf9e46847382bafc10597,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a298ddc53b935fe4fa7b2e6020a89d2f, type: 3}

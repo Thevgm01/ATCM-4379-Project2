@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class ShipCard : Card
 {
-    ShipCardData Data;
-
     public ShipCard(ShipCardData cardData)
     {
         Data = cardData;
     }
 
-    public override void Play(Transform target)
+    public Ship MakeShip(CardPlayer owner, Vector3 position, Transform field)
     {
-        Instantiate(Data.Model, target);
-        throw new System.NotImplementedException();
+        ShipCardData shipData = (ShipCardData)Data;
+
+        GameObject newShip = GameObject.Instantiate(shipData.Model, field);
+        newShip.transform.position = position;
+        Ship ship = newShip.AddComponent<Ship>();
+        ship.LoadData(owner, shipData);
+        return ship;
     }
 }

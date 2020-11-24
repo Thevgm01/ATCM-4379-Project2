@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2265567152868117277}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.44, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 4, y: 8, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -97,6 +97,8 @@ MonoBehaviour:
   maxY: 5
   speed: 0.3
   bankScale: 10
+  jumpParticles: {fileID: 3634884758614331924, guid: 960c05b48fddf9e46847382bafc10597,
+    type: 3}
 --- !u!64 &2265567152868117279
 MeshCollider:
   m_ObjectHideFlags: 0

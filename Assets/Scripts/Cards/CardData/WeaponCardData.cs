@@ -7,6 +7,9 @@ public class WeaponCardData : ComponentCardData
 {
     [Header("Weapon Info")]
 
+    [SerializeField] TargetType _shootTarget = TargetType.EnemyShip;
+    public TargetType ShootTarget => _shootTarget;
+
     //[SerializeField] [Range(0f, 1f)] float _chanceToHit = 1;
     //public float ChanceToHit => _chanceToHit;
 
@@ -27,4 +30,7 @@ public class WeaponCardData : ComponentCardData
 
     [SerializeField] int _costToFire = 1;
     public int CostToFire => _costToFire;
+
+    [SerializeField] GameObject _particleEffect = null;
+    public GameObject ParticleEffect => _particleEffect;
 }

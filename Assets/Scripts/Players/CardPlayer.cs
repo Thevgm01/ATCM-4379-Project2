@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public abstract class CardPlayer : MonoBehaviour
 {
-    public Deck<Card> draw, hand, discard, weaponQueue;
+    public Action<Card> DestroyCard = delegate { };
+
+    public Deck<Card> draw, hand, discard, weaponsToFire, weaponsFired;
     List<Ship> fleet;
 
     [SerializeField] StartingDeck startingDeck;
@@ -20,7 +23,8 @@ public abstract class CardPlayer : MonoBehaviour
         draw = new Deck<Card>();
         hand = new Deck<Card>();
         discard = new Deck<Card>();
-        weaponQueue = new Deck<Card>();
+        weaponsToFire = new Deck<Card>();
+        weaponsFired = new Deck<Card>();
 
         fleet = new List<Ship>();
 
@@ -34,14 +38,18 @@ public abstract class CardPlayer : MonoBehaviour
 
         if (cardViewer != null)
         {
+            DestroyCard += cardViewer.DestroyCardView;
+
             draw.CardAdded += cardViewer.ReorganizeDraw;
             draw.CardRemoved += cardViewer.ReorganizeDraw;
             hand.CardAdded += cardViewer.ReorganizeHand;
             hand.CardRemoved += cardViewer.ReorganizeHand;
             discard.CardAdded += cardViewer.ReorganizeDiscard;
             discard.CardRemoved += cardViewer.ReorganizeDiscard;
-            weaponQueue.CardAdded += cardViewer.ReorganizeWeaponQueue;
-            weaponQueue.CardRemoved += cardViewer.ReorganizeWeaponQueue;
+            weaponsToFire.CardAdded += cardViewer.ReorganizeWeaponsFired;
+            weaponsToFire.CardRemoved += cardViewer.ReorganizeWeaponsFired;
+            weaponsFired.CardAdded += cardViewer.ReorganizeWeaponsFired;
+            weaponsFired.CardRemoved += cardViewer.ReorganizeWeaponsFired;
         }
 
         //cardsView = new List<CardView>();
@@ -77,10 +85,10 @@ public abstract class CardPlayer : MonoBehaviour
     {
         Card newCard = null;
 
-        if (cardData is AbilityCardData) newCard = new AbilityCard((AbilityCardData)cardData);
-        else if (cardData is DefenseCardData) newCard = new DefenseCard((DefenseCardData)cardData);
-        else if (cardData is ShipCardData) newCard = new ShipCard((ShipCardData)cardData);
-        else if (cardData is WeaponCardData) newCard = new WeaponCard((WeaponCardData)cardData);
+        if (cardData is AbilityCardData abilityData) newCard = new AbilityCard(abilityData);
+        else if (cardData is DefenseCardData defenseData) newCard = new DefenseCard(defenseData);
+        else if (cardData is ShipCardData shipData) newCard = new ShipCard(shipData);
+        else if (cardData is WeaponCardData weaponData) newCard = new WeaponCard(weaponData);
         else Debug.LogError("Unsupported CardData type.");
 
         return newCard;
@@ -95,8 +103,9 @@ public abstract class CardPlayer : MonoBehaviour
     protected bool IsValidTarget(CardData.TargetType target, Transform transform)
     {
         Ship ship;
+        Debug.Log("hello");
 
-        switch(target)
+        switch (target)
         {
             case CardData.TargetType.AllAllyShips: return transform != null;
             case CardData.TargetType.AllEnemyShips: return transform != null;
@@ -115,5 +124,37 @@ public abstract class CardPlayer : MonoBehaviour
             default:
                 return false;
         }
+    }
+
+    protected void TryPlayCard(Card card, RaycastHit hit)
+    {
+        if (card.Data != null &&
+            IsValidTarget(card.Data.Target, hit.transform))
+        {
+            if (card is ShipCard)
+            {
+                fleet.Add(((ShipCard)card).MakeShip(this, hit.point, field.transform));
+                DestroyCard?.Invoke(card);
+                GetDeck(card).Remove(card);
+            }
+            else if (card is WeaponCard)
+            {
+                if (hit.transform.GetComponent<Ship>().TryAddWeapon((WeaponCard)card))
+                {
+                    GetDeck(card).Remove(card);
+                    weaponsFired.Add(card);
+                }
+            }
+        }
+    }
+
+    protected Deck<Card> GetDeck(Card card)
+    {
+        if (draw.Contains(card)) return draw;
+        if (hand.Contains(card)) return hand;
+        if (discard.Contains(card)) return discard;
+        if (weaponsToFire.Contains(card)) return weaponsToFire;
+        if (weaponsFired.Contains(card)) return weaponsFired;
+        return null;
     }
 }

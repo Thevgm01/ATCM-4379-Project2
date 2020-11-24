@@ -97,6 +97,8 @@ MonoBehaviour:
   maxY: 5
   speed: 0.2
   bankScale: 10
+  jumpParticles: {fileID: 3634884758614331924, guid: 960c05b48fddf9e46847382bafc10597,
+    type: 3}
 --- !u!64 &3181557338608426107
 MeshCollider:
   m_ObjectHideFlags: 0

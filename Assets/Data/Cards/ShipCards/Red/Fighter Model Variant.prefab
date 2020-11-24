@@ -10,12 +10,12 @@ PrefabInstance:
     - target: {fileID: 7497435307072388571, guid: 06f831f2b5d546d459eadc796496854a,
         type: 3}
       propertyPath: m_Name
-      value: Fighter Model
+      value: Fighter Model Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7497435307072388572, guid: 06f831f2b5d546d459eadc796496854a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.03
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7497435307072388572, guid: 06f831f2b5d546d459eadc796496854a,
         type: 3}
@@ -66,6 +66,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7497435307072388574, guid: 06f831f2b5d546d459eadc796496854a,
+        type: 3}
+      propertyPath: bankScale
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7497435307072388575, guid: 06f831f2b5d546d459eadc796496854a,
         type: 3}

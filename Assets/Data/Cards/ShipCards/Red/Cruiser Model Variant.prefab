@@ -15,7 +15,7 @@ PrefabInstance:
     - target: {fileID: 2265567152868117276, guid: e75ded7dfba1a094e8d837e0f0d93f2b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.44
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2265567152868117276, guid: e75ded7dfba1a094e8d837e0f0d93f2b,
         type: 3}
@@ -70,7 +70,7 @@ PrefabInstance:
     - target: {fileID: 2265567152868117277, guid: e75ded7dfba1a094e8d837e0f0d93f2b,
         type: 3}
       propertyPath: m_Name
-      value: Cruiser Model
+      value: Cruiser Model Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e75ded7dfba1a094e8d837e0f0d93f2b, type: 3}

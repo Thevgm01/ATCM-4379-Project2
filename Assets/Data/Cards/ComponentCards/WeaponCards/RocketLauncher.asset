@@ -16,7 +16,7 @@ MonoBehaviour:
   _description: A pod that fires three homing rockets, guaranteeing impressive damage
     at a hefty price.
   _graphic: {fileID: 0}
-  _target: 4
+  _target: 1
   _slotsRequired: 2
   _ignoreEvasion: 1
   _damage: 2
@@ -24,3 +24,5 @@ MonoBehaviour:
   _ignoreDamageReduction: 0
   _destroyComponentChance: 0
   _costToFire: 3
+  _particleEffect: {fileID: 5073776203729516959, guid: 1d3a6bceb703cb04685965fed04b8d50,
+    type: 3}

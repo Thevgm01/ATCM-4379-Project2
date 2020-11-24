@@ -11,7 +11,7 @@ public class AbilityCard : Card
         Data = cardData;
     }
 
-    public override void Play()
+    public void Play()
     {
         throw new System.NotImplementedException();
     }

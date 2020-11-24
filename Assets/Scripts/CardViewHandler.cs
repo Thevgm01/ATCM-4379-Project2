@@ -21,7 +21,7 @@ public class CardViewHandler : MonoBehaviour
 
     public CardVisibility cardVisibilityOverride;
 
-    public Transform drawPile, handPile, discardPile, weaponQueuePile;
+    public Transform drawPile, handPile, discardPile, weaponsToFirePile, weaponsFiredPile;
     CardView cardPiles;
     float defaultHeight;
     [SerializeField] GameObject cardPrefab;
@@ -30,6 +30,8 @@ public class CardViewHandler : MonoBehaviour
 
     public Dictionary<Card, CardView> cardsViewDictionary;
     public Dictionary<CardView, Card> cardsViewDictionary_inverse;
+
+    public GameObject destroyCardParticles;
 
     void Awake()
     {
@@ -69,9 +71,14 @@ public class CardViewHandler : MonoBehaviour
         ReorganizeDeck(newCard, cardPlayer.discard, discardPile, new Vector3(0, 0, -0.1f), CardStacking.Ascending, true);
     }
 
-    public void ReorganizeWeaponQueue(Card newCard = null)
+    public void ReorganizeWeaponsToFire(Card newCard = null)
     {
-        ReorganizeDeck(newCard, cardPlayer.weaponQueue, weaponQueuePile, new Vector3(0, 1f, -0.1f), CardStacking.Centered, true);
+        ReorganizeDeck(newCard, cardPlayer.weaponsToFire, weaponsToFirePile, new Vector3(0, 1f, -0.1f), CardStacking.Centered, true);
+    }
+
+    public void ReorganizeWeaponsFired(Card newCard = null)
+    {
+        ReorganizeDeck(newCard, cardPlayer.weaponsFired, weaponsFiredPile, new Vector3(0, 1f, -0.1f), CardStacking.Centered, true);
     }
 
     private void ReorganizeDeck(Card newCard, Deck<Card> deck, Transform pile, Vector3 offset, CardStacking stacking, bool visibility)
@@ -120,5 +127,14 @@ public class CardViewHandler : MonoBehaviour
     public void MoveCardsBack()
     {
         cardPiles.SetPosition(new Vector3(0, defaultHeight, 0));
+    }
+
+    public void DestroyCardView(Card card)
+    {
+        CardView cardView = cardsViewDictionary[card];
+        cardsViewDictionary.Remove(card);
+        cardsViewDictionary_inverse.Remove(cardView);
+        //Instantiate(destroyCardParticles, cardView.transform.position, cardView.transform.rotation);
+        Destroy(cardView.gameObject);
     }
 }

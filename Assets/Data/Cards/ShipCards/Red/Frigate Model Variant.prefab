@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 4460103797105854808, guid: d5bdf9419cbe870418415aa1dfc43659,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.51
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4460103797105854808, guid: d5bdf9419cbe870418415aa1dfc43659,
         type: 3}
@@ -70,7 +70,7 @@ PrefabInstance:
     - target: {fileID: 4460103797105854815, guid: d5bdf9419cbe870418415aa1dfc43659,
         type: 3}
       propertyPath: m_Name
-      value: Frigate Model
+      value: Frigate Model Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5bdf9419cbe870418415aa1dfc43659, type: 3}
