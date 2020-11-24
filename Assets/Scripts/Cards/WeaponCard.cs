@@ -15,7 +15,9 @@ public class WeaponCard : ComponentCard
     {
         WeaponCardData weaponData = (WeaponCardData)Data;
 
-        for(int i = 0; i < weaponData.NumberOfShots; ++i)
+        AudioHelper.PlayClip2D(weaponData.ShootSound, 1f);
+
+        for (int i = 0; i < weaponData.NumberOfShots; ++i)
         {
             GameObject.Instantiate(
                 weaponData.ParticleEffect,
@@ -36,6 +38,8 @@ public class WeaponCard : ComponentCard
                     weaponData.HitEffect,
                     other.transform.position,
                     Quaternion.identity);
+
+                AudioHelper.PlayClip2D(weaponData.HitSound, 0.5f);
             }
             if (breakComponent) other.BreakRandomComponent();
         }

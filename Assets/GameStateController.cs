@@ -7,8 +7,15 @@ public class GameStateController : MonoBehaviour
     public CardPlayer_Human human;
     public CardPlayer_Bot bot;
 
+    public AudioClip nextTurnSound;
+
+    public GameObject menuObj, loseObj, winObj;
+    public AudioClip menuMusic, gameMusic;
+    AudioSource musicPlayer;
+
     public enum State
     {
+        Menu,
         PlayerTurn,
         BotTurn
     }
@@ -21,7 +28,10 @@ public class GameStateController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        state = State.PlayerTurn;
+        state = State.Menu;
+
+        musicPlayer = AudioHelper.PlayClip2D(menuMusic, 0.5f, 0.5f);
+        musicPlayer.loop = true;
     }
 
     // Update is called once per frame
@@ -37,7 +47,8 @@ public class GameStateController : MonoBehaviour
                 if (!result)
                 {
                     state = State.PlayerTurn;
-                    human.BeginTurn();
+                    if (bot.fleet.Count < 0) winObj.SetActive(true);
+                    else human.BeginTurn();
                 }
             }
         }
@@ -47,9 +58,25 @@ public class GameStateController : MonoBehaviour
     {
         if (state == State.PlayerTurn)
         {
+            AudioHelper.PlayClip2D(nextTurnSound, 1);
             state = State.BotTurn;
             botTimer = 0;
-            bot.BeginTurn();
+            if (human.fleet.Count < 0) loseObj.SetActive(true);
+            else bot.BeginTurn();
+        }
+    }
+
+    public void BeginGame()
+    {
+        if(state == State.Menu)
+        {
+            state = State.PlayerTurn;
+            Destroy(musicPlayer.gameObject);
+            musicPlayer = AudioHelper.PlayClip2D(gameMusic, 1);
+            musicPlayer.loop = true;
+            AudioHelper.PlayClip2D(nextTurnSound, 1);
+            human.BeginTurn();
+            menuObj.SetActive(false);
         }
     }
 }

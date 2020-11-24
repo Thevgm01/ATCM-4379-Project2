@@ -22,7 +22,7 @@ public class CardPlayer_Bot : CardPlayer
             }
             else if (c is AbilityCard)
             {
-                if (energy > 3)
+                if (energy > 4)
                 {
                     TryPlayCard(c, opponent.RandomShip().transform, Vector3.zero);
                     return true;

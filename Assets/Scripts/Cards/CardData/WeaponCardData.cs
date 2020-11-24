@@ -36,4 +36,11 @@ public class WeaponCardData : ComponentCardData
 
     [SerializeField] GameObject _hitEffect = null;
     public GameObject HitEffect => _hitEffect;
+
+    [SerializeField] AudioClip _shootSound = null;
+    public AudioClip ShootSound => _shootSound;
+
+    [SerializeField] AudioClip _hitSound = null;
+    public AudioClip HitSound => _hitSound;
+
 }

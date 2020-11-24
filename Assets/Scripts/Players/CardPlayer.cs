@@ -8,7 +8,7 @@ public abstract class CardPlayer : MonoBehaviour
     public Action<Card> DestroyCard = delegate { };
 
     public Deck<Card> draw, hand, discard, weapons;
-    List<Ship> fleet;
+    public List<Ship> fleet;
 
     [SerializeField] StartingDeck startingDeck;
 
@@ -19,6 +19,8 @@ public abstract class CardPlayer : MonoBehaviour
     public Collider field;
 
     protected int energy = 0;
+
+    public AudioClip installModuleSound, warpInSound, errorSound;
 
     void Awake()
     {
@@ -132,16 +134,18 @@ public abstract class CardPlayer : MonoBehaviour
         }
     }
 
-    protected void TryPlayCard(Card card, Transform hit, Vector3 pos)
+    protected bool TryPlayCard(Card card, Transform hit, Vector3 pos)
     {
         if (card.Data != null &&
             IsValidTarget(card.Data.Target, hit.transform))
         {
             if (card is ShipCard)
             {
+                AudioHelper.PlayClip2D(warpInSound, 1);
                 fleet.Add(((ShipCard)card).MakeShip(this, pos, field.transform));
                 DestroyCard?.Invoke(card);
                 GetDeck(card).Remove(card);
+                return true;
             }
             else if (card is WeaponCard)
             {
@@ -149,21 +153,45 @@ public abstract class CardPlayer : MonoBehaviour
                 Ship ship = hit.transform.GetComponent<Ship>();
                 if (ship.TryAddWeapon(weapon))
                 {
+                    AudioHelper.PlayClip2D(installModuleSound, 1);
                     weapon.installedShip = ship;
                     weapons.Add(hand.Remove(card));
                     DestroyCard?.Invoke(card);
+                    return true;
+                }
+                else
+                {
+                    AudioHelper.PlayClip2D(errorSound, 1);
+                    return false;
                 }
             }
             else if (card is AbilityCard)
             {
-                WeaponCard weapon = (WeaponCard)weapons.Peek();
+                if (weapons.Count == 0)
+                {
+                    AudioHelper.PlayClip2D(errorSound, 1);
+                    return false;
+                }
+
+                WeaponCard weapon = null;
+                while(weapon == null || weapon.installedShip == null)
+                {
+                    weapon = (WeaponCard)weapons.Draw();
+                    weapons.Add(weapon, Deck<Card>.Position.Bottom);
+                }
                 WeaponCardData weaponData = (WeaponCardData)weapon.Data;
 
                 if (energy >= weaponData.CostToFire)
                 {
                     energy -= weaponData.CostToFire;
                     weapon.AttackShip(hit.transform.GetComponent<Ship>());
-                    weapons.Add(weapons.Draw(), Deck<Card>.Position.Bottom);
+                    //weapons.Add(weapons.Draw(), Deck<Card>.Position.Bottom);
+                    return true;
+                }
+                else
+                {
+                    AudioHelper.PlayClip2D(errorSound, 1);
+                    return false;
                 }
             }
         }

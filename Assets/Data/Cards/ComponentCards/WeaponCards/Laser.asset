@@ -24,8 +24,10 @@ MonoBehaviour:
   _numberOfShots: 1
   _ignoreDamageReduction: 0
   _destroyComponentChance: 0.2
-  _costToFire: 0
+  _costToFire: 1
   _particleEffect: {fileID: 5073776203729516959, guid: 1d3a6bceb703cb04685965fed04b8d50,
     type: 3}
   _hitEffect: {fileID: 7239418028307647451, guid: d9ebc82cd6ba39f47ae4a457d5a8aee0,
     type: 3}
+  _shootSound: {fileID: 8300000, guid: b10429f73674ba14b8b8e8ab6d199d43, type: 3}
+  _hitSound: {fileID: 8300000, guid: 3cbca5d7ebbdc8a49982b15ce3bff529, type: 3}
