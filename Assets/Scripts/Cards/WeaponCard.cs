@@ -16,6 +16,7 @@ public class WeaponCard : ComponentCard
         WeaponCardData weaponData = (WeaponCardData)Data;
 
         AudioHelper.PlayClip2D(weaponData.ShootSound, 1f);
+        bool hitSound = false;
 
         for (int i = 0; i < weaponData.NumberOfShots; ++i)
         {
@@ -39,9 +40,11 @@ public class WeaponCard : ComponentCard
                     other.transform.position,
                     Quaternion.identity);
 
-                AudioHelper.PlayClip2D(weaponData.HitSound, 0.5f);
+                hitSound = true;
             }
             if (breakComponent) other.BreakRandomComponent();
         }
+
+        if(hitSound) AudioHelper.PlayClip2D(weaponData.HitSound, 0.5f);
     }
 }

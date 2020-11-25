@@ -134,7 +134,7 @@ public abstract class CardPlayer : MonoBehaviour
         }
     }
 
-    protected bool TryPlayCard(Card card, Transform hit, Vector3 pos)
+    protected bool TryPlayCard(Card card, Transform hit, Vector3 pos, bool playErrorSound = true)
     {
         if (card.Data != null &&
             IsValidTarget(card.Data.Target, hit.transform))
@@ -161,7 +161,7 @@ public abstract class CardPlayer : MonoBehaviour
                 }
                 else
                 {
-                    AudioHelper.PlayClip2D(errorSound, 1);
+                    if (playErrorSound) AudioHelper.PlayClip2D(errorSound, 1);
                     return false;
                 }
             }
@@ -169,7 +169,7 @@ public abstract class CardPlayer : MonoBehaviour
             {
                 if (weapons.Count == 0)
                 {
-                    AudioHelper.PlayClip2D(errorSound, 1);
+                    if (playErrorSound) AudioHelper.PlayClip2D(errorSound, 1);
                     return false;
                 }
 
@@ -190,11 +190,12 @@ public abstract class CardPlayer : MonoBehaviour
                 }
                 else
                 {
-                    AudioHelper.PlayClip2D(errorSound, 1);
+                    if (playErrorSound) AudioHelper.PlayClip2D(errorSound, 1);
                     return false;
                 }
             }
         }
+        return false;
     }
 
     protected Deck<Card> GetDeck(Card card)

@@ -12,21 +12,18 @@ public class CardPlayer_Bot : CardPlayer
         {
             if (c is ShipCard)
             {
-                TryPlayCard(c, field.transform, field.transform.position);
-                return true;
+                if (TryPlayCard(c, field.transform, field.transform.position, false))
+                    return true;
             }
             else if (c is WeaponCard)
             {
-                TryPlayCard(c, RandomShip().transform, field.transform.position);
-                return true;
+                if (TryPlayCard(c, RandomShip().transform, field.transform.position, false))
+                    return true;
             }
             else if (c is AbilityCard)
             {
-                if (energy > 4)
-                {
-                    TryPlayCard(c, opponent.RandomShip().transform, Vector3.zero);
+                if (TryPlayCard(c, opponent.RandomShip().transform, Vector3.zero, false))
                     return true;
-                }
             }
         }
 

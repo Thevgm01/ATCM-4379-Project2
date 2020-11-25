@@ -47,10 +47,17 @@ public class GameStateController : MonoBehaviour
                 if (!result)
                 {
                     state = State.PlayerTurn;
-                    if (bot.fleet.Count < 0) winObj.SetActive(true);
+                    bool alive = false;
+                    foreach (Ship s in bot.fleet) if (s != null) alive = true;
+                    if (!alive) winObj.SetActive(true);
                     else human.BeginTurn();
                 }
             }
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
         }
     }
 
@@ -61,7 +68,9 @@ public class GameStateController : MonoBehaviour
             AudioHelper.PlayClip2D(nextTurnSound, 1);
             state = State.BotTurn;
             botTimer = 0;
-            if (human.fleet.Count < 0) loseObj.SetActive(true);
+            bool alive = false;
+            foreach (Ship s in human.fleet) if (s != null) alive = true;
+            if(!alive) loseObj.SetActive(true);
             else bot.BeginTurn();
         }
     }
